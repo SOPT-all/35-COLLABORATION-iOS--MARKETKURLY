@@ -14,13 +14,6 @@
 		8B7B9C612CEADC26002D2CEB /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7B9C602CEADC26002D2CEB /* Then */; };
 		8B7B9C632CEAEA61002D2CEB /* MarketKurlyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C622CEAEA61002D2CEB /* MarketKurlyFont.swift */; };
 		8B7B9C652CEAEC2F002D2CEB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C642CEAEC2F002D2CEB /* UIFont+.swift */; };
-		8B7B9C6C2CEAF266002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C6B2CEAF266002D2CEB /* .gitkeep */; };
-		8B7B9C6E2CEAF3F2002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C6D2CEAF3F2002D2CEB /* .gitkeep */; };
-		8B7B9C702CEAF3FE002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C6F2CEAF3FE002D2CEB /* .gitkeep */; };
-		8B7B9C722CEAF407002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C712CEAF407002D2CEB /* .gitkeep */; };
-		8B7B9C742CEAF430002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C732CEAF430002D2CEB /* .gitkeep */; };
-		8B7B9C762CEAF43E002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C752CEAF43E002D2CEB /* .gitkeep */; };
-		8B7B9C782CEAF449002D2CEB /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 8B7B9C772CEAF449002D2CEB /* .gitkeep */; };
 		8BDE91B72CE9FE840093C44C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91B62CE9FE840093C44C /* AppDelegate.swift */; };
 		8BDE91B92CE9FE840093C44C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */; };
 		8BDE91BB2CE9FE840093C44C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91BA2CE9FE840093C44C /* ViewController.swift */; };
@@ -45,13 +38,6 @@
 		8B7B9C5D2CEADB0E002D2CEB /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		8B7B9C622CEAEA61002D2CEB /* MarketKurlyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketKurlyFont.swift; sourceTree = "<group>"; };
 		8B7B9C642CEAEC2F002D2CEB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
-		8B7B9C6B2CEAF266002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C6D2CEAF3F2002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C6F2CEAF3FE002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C712CEAF407002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C732CEAF430002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C752CEAF43E002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B7B9C772CEAF449002D2CEB /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8BDE91B32CE9FE840093C44C /* MarketKurly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketKurly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDE91B62CE9FE840093C44C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +88,7 @@
 		8BDE91B52CE9FE840093C44C /* MarketKurly */ = {
 			isa = PBXGroup;
 			children = (
+				8BDE91C42CE9FE850093C44C /* Info.plist */,
 				8BDE91CA2CE9FFF70093C44C /* Application */,
 				8BDE91CD2CEA000D0093C44C /* Data */,
 				8BDE91CC2CEA00070093C44C /* Core */,
@@ -113,7 +100,6 @@
 		8BDE91CA2CE9FFF70093C44C /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				8BDE91C42CE9FE850093C44C /* Info.plist */,
 				8BDE91B62CE9FE840093C44C /* AppDelegate.swift */,
 				8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */,
 			);
@@ -154,7 +140,6 @@
 		8BDE91CE2CEA00300093C44C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C712CEAF407002D2CEB /* .gitkeep */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -162,7 +147,6 @@
 		8BDE91CF2CEA00370093C44C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C6F2CEAF3FE002D2CEB /* .gitkeep */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -170,7 +154,6 @@
 		8BDE91D02CEA003D0093C44C /* Review */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C6D2CEAF3F2002D2CEB /* .gitkeep */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -178,7 +161,6 @@
 		8BDE91D12CEA00420093C44C /* Wish */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C6B2CEAF266002D2CEB /* .gitkeep */,
 			);
 			path = Wish;
 			sourceTree = "<group>";
@@ -211,7 +193,6 @@
 		8BDE91D62CEA010E0093C44C /* API */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C772CEAF449002D2CEB /* .gitkeep */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -228,7 +209,6 @@
 		8BDE91D92CEA01280093C44C /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C752CEAF43E002D2CEB /* .gitkeep */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -236,7 +216,6 @@
 		8BDE91DA2CEA01300093C44C /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				8B7B9C732CEAF430002D2CEB /* .gitkeep */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -346,14 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B7B9C6E2CEAF3F2002D2CEB /* .gitkeep in Resources */,
 				8BDE91C02CE9FE850093C44C /* Assets.xcassets in Resources */,
-				8B7B9C722CEAF407002D2CEB /* .gitkeep in Resources */,
-				8B7B9C742CEAF430002D2CEB /* .gitkeep in Resources */,
-				8B7B9C6C2CEAF266002D2CEB /* .gitkeep in Resources */,
-				8B7B9C702CEAF3FE002D2CEB /* .gitkeep in Resources */,
-				8B7B9C762CEAF43E002D2CEB /* .gitkeep in Resources */,
-				8B7B9C782CEAF449002D2CEB /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
