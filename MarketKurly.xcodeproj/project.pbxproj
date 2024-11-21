@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8BC226782CEDEB6B00FD38B7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		8BC226782CEDEB6B00FD38B7 /* Exceptions for "MarketKurly" folder in "MarketKurly" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -28,7 +28,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8BC226642CEDEB6B00FD38B7 /* MarketKurly */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8BC226782CEDEB6B00FD38B7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MarketKurly; sourceTree = "<group>"; };
+		8BC226642CEDEB6B00FD38B7 /* MarketKurly */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8BC226782CEDEB6B00FD38B7 /* Exceptions for "MarketKurly" folder in "MarketKurly" target */,
+			);
+			path = MarketKurly;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +114,6 @@
 				};
 			};
 			buildConfigurationList = 8BDE91AE2CE9FE840093C44C /* Build configuration list for PBXProject "MarketKurly" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -121,6 +127,7 @@
 				8BDE91E22CEA02A50093C44C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8B7B9C5F2CEADC26002D2CEB /* XCRemoteSwiftPackageReference "Then" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 8BDE91B42CE9FE840093C44C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
