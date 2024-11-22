@@ -3,56 +3,40 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B7B9C572CEAD51E002D2CEB /* ExampleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C562CEAD51E002D2CEB /* ExampleApi.swift */; };
-		8B7B9C592CEAD5E1002D2CEB /* ExampleTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C582CEAD5E1002D2CEB /* ExampleTarget.swift */; };
-		8B7B9C5C2CEAD674002D2CEB /* RequestExampleDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C5B2CEAD674002D2CEB /* RequestExampleDto.swift */; };
-		8B7B9C5E2CEADB0E002D2CEB /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C5D2CEADB0E002D2CEB /* UIView+.swift */; };
 		8B7B9C612CEADC26002D2CEB /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8B7B9C602CEADC26002D2CEB /* Then */; };
-		8B7B9C632CEAEA61002D2CEB /* MarketKurlyFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C622CEAEA61002D2CEB /* MarketKurlyFont.swift */; };
-		8B7B9C652CEAEC2F002D2CEB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B9C642CEAEC2F002D2CEB /* UIFont+.swift */; };
-		8BDE91B72CE9FE840093C44C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91B62CE9FE840093C44C /* AppDelegate.swift */; };
-		8BDE91B92CE9FE840093C44C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */; };
-		8BDE91BB2CE9FE840093C44C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91BA2CE9FE840093C44C /* ViewController.swift */; };
-		8BDE91C02CE9FE850093C44C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BDE91BF2CE9FE850093C44C /* Assets.xcassets */; };
 		8BDE91DD2CEA02590093C44C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE91DC2CEA02590093C44C /* Alamofire */; };
 		8BDE91E02CEA02620093C44C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE91DF2CEA02620093C44C /* SnapKit */; };
 		8BDE91E42CEA02A50093C44C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8BDE91E32CEA02A50093C44C /* Kingfisher */; };
-		8BDE91E72CEA03BB0093C44C /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91E62CEA03BB0093C44C /* TargetType.swift */; };
-		8BDE91E92CEA06F90093C44C /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91E82CEA06F90093C44C /* RequestParameters.swift */; };
-		8BDE91EB2CEA07450093C44C /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91EA2CEA07450093C44C /* Encodable+.swift */; };
-		8BDE91EF2CEA0DDF0093C44C /* KurlyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91EE2CEA0DDF0093C44C /* KurlyClient.swift */; };
-		8BDE91F12CEA0E520093C44C /* NetworkRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91F02CEA0E520093C44C /* NetworkRequestable.swift */; };
-		8BDE91F32CEA0FB40093C44C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91F22CEA0FB40093C44C /* NetworkManager.swift */; };
-		8BDE91F52CEA10270093C44C /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91F42CEA10270093C44C /* NetworkLogger.swift */; };
-		8BDE91FC2CEA40A50093C44C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE91FB2CEA40A50093C44C /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8B7B9C562CEAD51E002D2CEB /* ExampleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApi.swift; sourceTree = "<group>"; };
-		8B7B9C582CEAD5E1002D2CEB /* ExampleTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTarget.swift; sourceTree = "<group>"; };
-		8B7B9C5B2CEAD674002D2CEB /* RequestExampleDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExampleDto.swift; sourceTree = "<group>"; };
-		8B7B9C5D2CEADB0E002D2CEB /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		8B7B9C622CEAEA61002D2CEB /* MarketKurlyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketKurlyFont.swift; sourceTree = "<group>"; };
-		8B7B9C642CEAEC2F002D2CEB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		8BDE91B32CE9FE840093C44C /* MarketKurly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketKurly.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BDE91B62CE9FE840093C44C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8BDE91BA2CE9FE840093C44C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8BDE91BF2CE9FE850093C44C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8BDE91C42CE9FE850093C44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BDE91E62CEA03BB0093C44C /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
-		8BDE91E82CEA06F90093C44C /* RequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
-		8BDE91EA2CEA07450093C44C /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
-		8BDE91EE2CEA0DDF0093C44C /* KurlyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KurlyClient.swift; sourceTree = "<group>"; };
-		8BDE91F02CEA0E520093C44C /* NetworkRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestable.swift; sourceTree = "<group>"; };
-		8BDE91F22CEA0FB40093C44C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		8BDE91F42CEA10270093C44C /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
-		8BDE91FB2CEA40A50093C44C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8BC226782CEDEB6B00FD38B7 /* Exceptions for "MarketKurly" folder in "MarketKurly" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8BDE91B22CE9FE840093C44C /* MarketKurly */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8BC226642CEDEB6B00FD38B7 /* MarketKurly */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8BC226782CEDEB6B00FD38B7 /* Exceptions for "MarketKurly" folder in "MarketKurly" target */,
+			);
+			path = MarketKurly;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8BDE91B02CE9FE840093C44C /* Frameworks */ = {
@@ -72,7 +56,7 @@
 		8BDE91AA2CE9FE840093C44C = {
 			isa = PBXGroup;
 			children = (
-				8BDE91B52CE9FE840093C44C /* MarketKurly */,
+				8BC226642CEDEB6B00FD38B7 /* MarketKurly */,
 				8BDE91B42CE9FE840093C44C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,176 +67,6 @@
 				8BDE91B32CE9FE840093C44C /* MarketKurly.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		8BDE91B52CE9FE840093C44C /* MarketKurly */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91C42CE9FE850093C44C /* Info.plist */,
-				8BDE91CA2CE9FFF70093C44C /* Application */,
-				8BDE91CD2CEA000D0093C44C /* Data */,
-				8BDE91CC2CEA00070093C44C /* Core */,
-				8BDE91CB2CEA00000093C44C /* Presentation */,
-			);
-			path = MarketKurly;
-			sourceTree = "<group>";
-		};
-		8BDE91CA2CE9FFF70093C44C /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91B62CE9FE840093C44C /* AppDelegate.swift */,
-				8BDE91B82CE9FE840093C44C /* SceneDelegate.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		8BDE91CB2CEA00000093C44C /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91D12CEA00420093C44C /* Wish */,
-				8BDE91D02CEA003D0093C44C /* Review */,
-				8BDE91CF2CEA00370093C44C /* Detail */,
-				8BDE91CE2CEA00300093C44C /* Home */,
-				8BDE91BA2CE9FE840093C44C /* ViewController.swift */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		8BDE91CC2CEA00070093C44C /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91F92CEA148B0093C44C /* UI */,
-				8BDE91D22CEA00480093C44C /* Network */,
-				8BDE91D32CEA00AD0093C44C /* Extensions */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		8BDE91CD2CEA000D0093C44C /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91D62CEA010E0093C44C /* API */,
-				8BDE91D72CEA01130093C44C /* Models */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		8BDE91CE2CEA00300093C44C /* Home */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		8BDE91CF2CEA00370093C44C /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Detail;
-			sourceTree = "<group>";
-		};
-		8BDE91D02CEA003D0093C44C /* Review */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Review;
-			sourceTree = "<group>";
-		};
-		8BDE91D12CEA00420093C44C /* Wish */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Wish;
-			sourceTree = "<group>";
-		};
-		8BDE91D22CEA00480093C44C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91FA2CEA3B3C0093C44C /* Example */,
-				8BDE91E62CEA03BB0093C44C /* TargetType.swift */,
-				8BDE91E82CEA06F90093C44C /* RequestParameters.swift */,
-				8BDE91EA2CEA07450093C44C /* Encodable+.swift */,
-				8BDE91EE2CEA0DDF0093C44C /* KurlyClient.swift */,
-				8BDE91F02CEA0E520093C44C /* NetworkRequestable.swift */,
-				8BDE91F22CEA0FB40093C44C /* NetworkManager.swift */,
-				8BDE91F42CEA10270093C44C /* NetworkLogger.swift */,
-				8BDE91FB2CEA40A50093C44C /* NetworkError.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		8BDE91D32CEA00AD0093C44C /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8B7B9C5D2CEADB0E002D2CEB /* UIView+.swift */,
-				8B7B9C642CEAEC2F002D2CEB /* UIFont+.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		8BDE91D62CEA010E0093C44C /* API */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		8BDE91D72CEA01130093C44C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91D92CEA01280093C44C /* Request */,
-				8BDE91DA2CEA01300093C44C /* Response */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		8BDE91D92CEA01280093C44C /* Request */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
-		8BDE91DA2CEA01300093C44C /* Response */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		8BDE91F72CEA13030093C44C /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91F82CEA13200093C44C /* Font */,
-				8BDE91BF2CE9FE850093C44C /* Assets.xcassets */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		8BDE91F82CEA13200093C44C /* Font */ = {
-			isa = PBXGroup;
-			children = (
-				8B7B9C622CEAEA61002D2CEB /* MarketKurlyFont.swift */,
-			);
-			path = Font;
-			sourceTree = "<group>";
-		};
-		8BDE91F92CEA148B0093C44C /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				8BDE91F72CEA13030093C44C /* Resources */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		8BDE91FA2CEA3B3C0093C44C /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				8B7B9C562CEAD51E002D2CEB /* ExampleApi.swift */,
-				8B7B9C582CEAD5E1002D2CEB /* ExampleTarget.swift */,
-				8B7B9C5B2CEAD674002D2CEB /* RequestExampleDto.swift */,
-			);
-			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +83,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8BC226642CEDEB6B00FD38B7 /* MarketKurly */,
 			);
 			name = MarketKurly;
 			packageProductDependencies = (
@@ -297,7 +114,6 @@
 				};
 			};
 			buildConfigurationList = 8BDE91AE2CE9FE840093C44C /* Build configuration list for PBXProject "MarketKurly" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -311,6 +127,7 @@
 				8BDE91E22CEA02A50093C44C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8B7B9C5F2CEADC26002D2CEB /* XCRemoteSwiftPackageReference "Then" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 8BDE91B42CE9FE840093C44C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -325,7 +142,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDE91C02CE9FE850093C44C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,23 +152,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDE91E72CEA03BB0093C44C /* TargetType.swift in Sources */,
-				8B7B9C652CEAEC2F002D2CEB /* UIFont+.swift in Sources */,
-				8BDE91F32CEA0FB40093C44C /* NetworkManager.swift in Sources */,
-				8B7B9C632CEAEA61002D2CEB /* MarketKurlyFont.swift in Sources */,
-				8BDE91EF2CEA0DDF0093C44C /* KurlyClient.swift in Sources */,
-				8BDE91BB2CE9FE840093C44C /* ViewController.swift in Sources */,
-				8B7B9C5C2CEAD674002D2CEB /* RequestExampleDto.swift in Sources */,
-				8BDE91F12CEA0E520093C44C /* NetworkRequestable.swift in Sources */,
-				8BDE91B72CE9FE840093C44C /* AppDelegate.swift in Sources */,
-				8BDE91EB2CEA07450093C44C /* Encodable+.swift in Sources */,
-				8BDE91E92CEA06F90093C44C /* RequestParameters.swift in Sources */,
-				8B7B9C5E2CEADB0E002D2CEB /* UIView+.swift in Sources */,
-				8BDE91B92CE9FE840093C44C /* SceneDelegate.swift in Sources */,
-				8B7B9C572CEAD51E002D2CEB /* ExampleApi.swift in Sources */,
-				8B7B9C592CEAD5E1002D2CEB /* ExampleTarget.swift in Sources */,
-				8BDE91FC2CEA40A50093C44C /* NetworkError.swift in Sources */,
-				8BDE91F52CEA10270093C44C /* NetworkLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
