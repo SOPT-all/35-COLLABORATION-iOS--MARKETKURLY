@@ -15,6 +15,8 @@ final class HomeViewController: UIViewController {
                                                   font: MarketKurlyFont.bodyBold16.font)
     }
     
+    private let topNavigation = HomeTopNavigation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,13 +28,13 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubviews(
-            titleLabel
+            topNavigation
         )
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.height.equalTo(60)
-            $0.left.right.equalToSuperview().inset(20)
+        topNavigation.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(88)  // FIXME: top-safe-area 고려 필요
         }
     }
 }
