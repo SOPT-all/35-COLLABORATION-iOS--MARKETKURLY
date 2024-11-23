@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 final class HomeViewController: UIViewController {
     
@@ -16,6 +18,10 @@ final class HomeViewController: UIViewController {
     }
     
     private let topNavigation = HomeTopNavigation()
+    
+    private let scrollTab = HomeScrollTab().then {
+        $0.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택", "이게컬리지"], animated: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +34,19 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubviews(
-            topNavigation
+            topNavigation,
+            scrollTab
         )
         
         topNavigation.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.right.equalToSuperview()
             $0.height.equalTo(88)  // FIXME: top-safe-area 고려 필요
+        }
+        
+        scrollTab.snp.makeConstraints {
+            $0.top.equalTo(topNavigation.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
         }
     }
 }
