@@ -64,6 +64,7 @@ class TabBarController: UITabBarController {
         }
         
         let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
         
         navigationController.tabBarItem = UITabBarItem(
             title: page.pageName(),

@@ -16,7 +16,8 @@ final class HomeTopNavigation: UIView {
     }
     
     private let leadingLogoIcon = UIImageView().then {
-        $0.image = UIImage(named: "img_home_logo")
+        $0.image = UIImage(named: "img_home_logo")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = .white
     }
     
     private let trailingLogoIconsStackView = UIStackView().then {
@@ -26,20 +27,24 @@ final class HomeTopNavigation: UIView {
     }
     
     private let notificationIconButton = UIButton().then {
-        $0.setImage(UIImage(named: "icn_home_notification"), for: .normal)
+        $0.setImage(UIImage(named: "icn_home_notification")?.withRenderingMode(.alwaysTemplate), for: .normal)
         $0.backgroundColor = .clear
+        $0.tintColor = .white
     }
     
     private let cartIconButton = UIButton().then {
-        $0.setImage(UIImage(named: "icn_home_cart"), for: .normal)
+        $0.setImage(UIImage(named: "icn_home_cart")?.withRenderingMode(.alwaysTemplate), for: .normal)
         $0.backgroundColor = .clear
+        $0.tintColor = .white
     }
     
+    private let homeSwitchTab = HomeSwitchTab()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         makeUI()
+        bindAction()
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +56,7 @@ final class HomeTopNavigation: UIView {
         addSubview(
             containerView.addSubviews(
                 leadingLogoIcon,
-                // TODO: centerSwitchTab,
+                homeSwitchTab,
                 trailingLogoIconsStackView.addArrangedSubviews(
                     notificationIconButton,
                     cartIconButton
@@ -70,6 +75,13 @@ final class HomeTopNavigation: UIView {
             $0.bottom.equalToSuperview().offset(-6)
         }
         
+        homeSwitchTab.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-8)
+            $0.width.equalTo(135)
+            $0.height.equalTo(28)
+        }
+        
         trailingLogoIconsStackView.snp.makeConstraints {
             $0.trailing.equalToSuperview().offset(-14)
             $0.bottom.equalToSuperview().offset(-2)
@@ -81,6 +93,29 @@ final class HomeTopNavigation: UIView {
         
         cartIconButton.snp.makeConstraints {
             $0.size.equalTo(40)
+        }
+    }
+    
+    
+    private func bindAction() {
+        homeSwitchTab.addTarget(self, action: #selector(tabIndexDidChange(_:)), for: .valueChanged)
+    }
+
+    @objc private func tabIndexDidChange(_ sender: HomeSwitchTab) {
+        updateTopNavigationUI(with: sender.selectedIndex)
+    }
+    
+    private func updateTopNavigationUI(with index: Int) {
+        if index == 0 {
+            containerView.backgroundColor = .primary600
+            leadingLogoIcon.tintColor = .white
+            notificationIconButton.tintColor = .white
+            cartIconButton.tintColor = .white
+        } else {
+            containerView.backgroundColor = .white
+            leadingLogoIcon.tintColor = .primary600
+            notificationIconButton.tintColor = .black
+            cartIconButton.tintColor = .black
         }
     }
 }
