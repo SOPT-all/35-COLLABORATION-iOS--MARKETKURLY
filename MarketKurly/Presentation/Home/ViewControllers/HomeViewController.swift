@@ -40,4 +40,23 @@ final class HomeViewController: UIViewController {
 }
 
 
+#if DEBUG
+import SwiftUI
+struct HomeViewControllerRepresentable: UIViewControllerRepresentable {
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
+    }
+    
+    @available(iOS 13.0, *)
+    func makeUIViewController(context: Context) -> some UIViewController {
+        HomeViewController()
+    }
+}
+
+#Preview {
+    HomeViewControllerRepresentable()
+}
+#endif
+
 
