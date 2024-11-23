@@ -19,9 +19,7 @@ final class HomeViewController: UIViewController {
     
     private let topNavigation = HomeTopNavigation()
     
-    private let scrollTab = HomeScrollTab().then {
-        $0.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택", "이게컬리지"], animated: false)
-    }
+    private let scrollTab = HomeScrollTab()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +46,8 @@ final class HomeViewController: UIViewController {
             $0.top.equalTo(topNavigation.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
         }
+        
+        scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택", "이게컬리지"], animated: false)
     }
 }
 
