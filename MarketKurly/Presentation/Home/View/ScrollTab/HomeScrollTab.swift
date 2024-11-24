@@ -9,10 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-final class HomeScrollTab: UIView {
+final class HomeScrollTab: UIControl {
     
-    private var tabItems: [String] = []   // 탭 아이템
-    private var selectedIndex: Int = 0    // 선택된 탭 인덱스
+    private var tabItems: [String] = []    // 탭 아이템
+    
+    public var selectedIndex: Int = 0 {   // 선택된 탭 인덱스
+        didSet {
+            sendActions(for: .valueChanged)
+        }
+    }
     
     private let containerView = UIView()
     

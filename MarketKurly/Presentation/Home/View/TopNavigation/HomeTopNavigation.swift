@@ -44,7 +44,7 @@ final class HomeTopNavigation: UIView {
         super.init(frame: frame)
         
         makeUI()
-        bindAction()
+        bindActions()
     }
     
     required init?(coder: NSCoder) {
@@ -97,7 +97,7 @@ final class HomeTopNavigation: UIView {
     }
     
     
-    private func bindAction() {
+    private func bindActions() {
         homeSwitchTab.addTarget(self, action: #selector(tabIndexDidChange(_:)), for: .valueChanged)
     }
 

@@ -25,6 +25,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         makeUI()
+        bindActions()
     }
 
     
@@ -47,7 +48,17 @@ final class HomeViewController: UIViewController {
             $0.horizontalEdges.equalToSuperview()
         }
         
-        scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택", "이게컬리지"], animated: false)
+        scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택"], animated: false)
+    }
+    
+    
+    private func bindActions() {
+        scrollTab.addTarget(self, action: #selector(scrollTabValueDidChange(_:)), for: .valueChanged)
+    }
+    
+    
+                            @objc private func scrollTabValueDidChange(_ sender: HomeScrollTab) {
+        print("Scroll Tab index changed: \(sender.selectedIndex)")
     }
 }
 
