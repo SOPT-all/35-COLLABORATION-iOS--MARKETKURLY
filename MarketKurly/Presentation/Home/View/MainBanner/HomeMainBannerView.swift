@@ -25,7 +25,7 @@ class HomeMainBannerView: UIView {
             $0.showsHorizontalScrollIndicator = false
             $0.delegate = self
             $0.dataSource = self
-            $0.register(HomeMainBannerCell.self, forCellWithReuseIdentifier: HomeMainBannerCell.identifier)
+            $0.register(HomeMainBannerInnerCell.self, forCellWithReuseIdentifier: HomeMainBannerInnerCell.identifier)
         }
     }()
     
@@ -155,7 +155,7 @@ extension HomeMainBannerView: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath) as? HomeMainBannerCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMainBannerInnerCell.identifier, for: indexPath) as? HomeMainBannerInnerCell else {
             return UICollectionViewCell()
         }
         

@@ -9,23 +9,19 @@ import UIKit
 import Then
 import SnapKit
 
-class HomeMainBannerCell: UICollectionViewCell {
+final class HomeMainBannerCell: UICollectionViewCell {
     
-    static let identifier = "CarouselCell"
+    static let identifier = "HomeMainBannerCell"
     
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
+    private let bannerView = HomeMainBannerView().then {
+        $0.autoScrollDuration = 4.0
+        $0.isAutoScrollEnabled = true
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        contentView.addSubviews(
-            imageView
-        )
-        
-        imageView.snp.makeConstraints { make in
+        contentView.addSubview(bannerView)
+        bannerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
@@ -36,17 +32,11 @@ class HomeMainBannerCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        clearUI()
     }
     
-    
-    public func setUI(with bannerImage: String) {
-        imageView.image = UIImage(named: bannerImage)
-    }
-    
- 
-    private func clearUI() {
-        imageView.image = nil
+    func setUI(with items: [HomeMainBannerItem]) {
+        let imageUrls = items.compactMap { $0.imageUrl }
+        bannerView.setImages(imageUrls)
+        bannerView.startAutoScroll()
     }
 }

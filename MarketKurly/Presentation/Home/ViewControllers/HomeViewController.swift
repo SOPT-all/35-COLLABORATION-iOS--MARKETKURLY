@@ -11,44 +11,28 @@ import Then
 
 final class HomeViewController: UIViewController {
     
-    private let titleLabel = UILabel().then {
-        $0.attributedText = .makeAttributedString(text: "Home",
-                                                  color: .black,
-                                                  font: MarketKurlyFont.bodyBold16.font)
-    }
-    
     private let topNavigation = HomeTopNavigation()
     
     private let scrollTab = HomeScrollTab()
     
-    private let contentsScrollView = UIScrollView()
-    
-    private let contentsStackView = UIStackView().then {
-        $0.backgroundColor = .gray
+    private lazy var contentsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout()).then {
+        $0.backgroundColor = .white
+        $0.delegate = self
+        $0.register(HomeMainBannerCell.self, forCellWithReuseIdentifier: HomeMainBannerCell.identifier)
+        $0.register(HomeCategoryCell.self, forCellWithReuseIdentifier: HomeCategoryCell.identifier)
     }
     
-    private let topBanner = HomeMainBannerView().then {
-        $0.autoScrollDuration = 5.0
-        $0.isAutoScrollEnabled = true
-    }
-    
-    
-    let bannerImagesMock = ["img_home_banner_large_1",
-                            "img_home_banner_large_2",
-                            "img_home_banner_large_3",
-                            "img_home_banner_large_4",
-                            "img_home_banner_large_5",
-                            "img_home_banner_large_6",
-                            "img_home_banner_large_7",
-                            "img_home_banner_large_8"]
+    private var dataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDataSource()
         makeUI()
         setUI()
         bindActions()
+        applySnapshot()
     }
 
     
@@ -58,11 +42,7 @@ final class HomeViewController: UIViewController {
         view.addSubviews(
             topNavigation,
             scrollTab,
-            contentsScrollView.addSubviews(
-                contentsStackView.addArrangedSubviews(
-                    topBanner
-                )
-            )
+            contentsCollectionView
         )
         
         topNavigation.snp.makeConstraints {
@@ -76,19 +56,10 @@ final class HomeViewController: UIViewController {
             $0.horizontalEdges.equalToSuperview()
         }
         
-        contentsScrollView.snp.makeConstraints {
+        contentsCollectionView.snp.makeConstraints {
             $0.top.equalTo(scrollTab.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-90)
-        }
-        
-        contentsStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalToSuperview()
-        }
-        
-        topBanner.snp.makeConstraints {
-            $0.height.equalTo(278)
         }
     }
     
@@ -107,12 +78,109 @@ final class HomeViewController: UIViewController {
         // 스크롤 탭 세팅
         scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택"],
                          animated: false)
+    }
+    
+    
+    // 컬렉션 뷰 DataSource 세팅
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: contentsCollectionView) { collectionView, indexPath, item in
+            switch HomeSection(rawValue: indexPath.section) {
+            case .mainBanner:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath) as? HomeMainBannerCell else {
+                    return UICollectionViewCell()
+                }
+                
+                if let bannerSection = item as? HomeMainBannerSection,
+                   let bannerItems = bannerSection.mainBannerData {
+                    cell.setUI(with: bannerItems)
+                }
+                
+                return cell
+            case .category:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCell.identifier, for: indexPath) as? HomeCategoryCell else {
+                    return UICollectionViewCell()
+                }
+                
+                if let categoryItem = item as? HomeCategoryItem {
+                    cell.setUI(iconImage: categoryItem.imageUrl, title: categoryItem.title)
+                }
+                
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+        }
+    }
+    
+    
+    // 컬렉션 뷰 레이아웃 세팅
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        UICollectionViewCompositionalLayout { sectionIndex, _ in
+            guard let section = HomeSection(rawValue: sectionIndex) else { return nil }
+            switch section {
+            case .mainBanner:
+                return self.createMainBannerLayout()
+            case .category:
+                return self.createCategoryLayout()
+            }
+        }
+    }
+    
+    
+    // 탑 배너 레이아웃 세팅
+    private func createMainBannerLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        // 탑 배너 세팅
-        topBanner.setImages(bannerImagesMock)
-        topBanner.startAutoScroll()  // 자동 스크롤 시작
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(278))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        return section
+    }
+    
+    
+    // 카테고리 레이아웃 세팅
+    private func createCategoryLayout() -> NSCollectionLayoutSection {
+        // 아이템 크기: 65x65
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(65), heightDimension: .absolute(65))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        // 그룹 크기: 65x65 * 2 + 7px 간격 = 137px 높이
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(65), heightDimension: .absolute(137))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(7)  // 두 행 사이 간격
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous  // 가로 스크롤
+        section.interGroupSpacing = 0
+        section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 12, bottom: 13, trailing: 13)
+        
+        return section
+    }
+    
+    
+    // Datasource Snapshot 세팅
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
+
+        // (1) 메인 배너
+        snapshot.appendSections([.mainBanner])
+        snapshot.appendItems([MockData.homeBannerSection], toSection: .mainBanner)
+
+        // (2) 카테고리
+        if let categoryData = MockData.categorySection.categoryData {
+            snapshot.appendSections([.category])
+            snapshot.appendItems(categoryData, toSection: .category)
+        }
+
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
+
+extension HomeViewController: UICollectionViewDelegate {}
 
 
 #if DEBUG
@@ -133,5 +201,3 @@ struct HomeViewControllerRepresentable: UIViewControllerRepresentable {
     HomeViewControllerRepresentable()
 }
 #endif
-
-
