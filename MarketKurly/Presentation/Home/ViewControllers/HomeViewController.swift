@@ -18,8 +18,16 @@ final class HomeViewController: UIViewController {
     private lazy var contentsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout()).then {
         $0.backgroundColor = .white
         $0.delegate = self
-        $0.register(HomeMainBannerCell.self, forCellWithReuseIdentifier: HomeMainBannerCell.identifier)
-        $0.register(HomeCategoryCell.self, forCellWithReuseIdentifier: HomeCategoryCell.identifier)
+        $0.register(HomeMainBannerCell.self,
+                    forCellWithReuseIdentifier: HomeMainBannerCell.identifier)
+        $0.register(HomeCategoryCell.self,
+                    forCellWithReuseIdentifier: HomeCategoryCell.identifier)
+        $0.register(HomeWishListCell.self,
+                    forCellWithReuseIdentifier: HomeWishListCell.identifier)
+        $0.register(HomeWishListHeaderView.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: HomeWishListHeaderView.identifier
+        )
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>!
@@ -89,28 +97,52 @@ final class HomeViewController: UIViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath) as? HomeMainBannerCell else {
                     return UICollectionViewCell()
                 }
-                
-                if let bannerSection = item as? HomeMainBannerSection,
-                   let bannerItems = bannerSection.mainBannerData {
-                    cell.setUI(with: bannerItems)
+                if let bannerSection = item as? HomeMainBannerSection {
+                    cell.setUI(with: bannerSection.mainBannerData ?? [])
                 }
-                
                 return cell
+                
             case .category:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCell.identifier, for: indexPath) as? HomeCategoryCell else {
                     return UICollectionViewCell()
                 }
-                
                 if let categoryItem = item as? HomeCategoryItem {
                     cell.setUI(iconImage: categoryItem.imageUrl, title: categoryItem.title)
                 }
-                
                 return cell
+                
+            case .wishList:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWishListCell.identifier, for: indexPath) as? HomeWishListCell else {
+                    return UICollectionViewCell()
+                }
+                if let wishListItem = item as? HomeWishListItem {
+                    cell.setUI(with: wishListItem)
+                }
+                return cell
+                
             default:
                 return UICollectionViewCell()
             }
         }
+        
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard let section = HomeSection(rawValue: indexPath.section) else { return nil}
+            
+            switch section {
+            case .wishList:
+                let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: HomeWishListHeaderView.identifier,
+                    for: indexPath
+                ) as? HomeWishListHeaderView
+                
+                return header
+            default:
+                return nil
+            }
+        }
     }
+
     
     
     // 컬렉션 뷰 레이아웃 세팅
@@ -122,6 +154,8 @@ final class HomeViewController: UIViewController {
                 return self.createMainBannerLayout()
             case .category:
                 return self.createCategoryLayout()
+            case .wishList:
+                return self.createWishListLayout()
             }
         }
     }
@@ -148,7 +182,6 @@ final class HomeViewController: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
-        // 그룹 크기: 65x65 * 2 + 7px 간격 = 137px 높이
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(65), heightDimension: .absolute(137))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(7)  // 두 행 사이 간격
@@ -162,7 +195,35 @@ final class HomeViewController: UIViewController {
     }
     
     
-    // Datasource Snapshot 세팅
+    private func createWishListLayout() -> NSCollectionLayoutSection {
+        // 아이템 크기: 145x330
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(145), heightDimension: .absolute(330))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(145 + 7), heightDimension: .absolute(330))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(7) // 아이템 간 간격 설정
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16) // 그룹 양쪽 간격 16px
+
+        // 헤더 추가
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(70))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+
+        return section
+    }
+
+
+
+    
+    
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
 
@@ -176,8 +237,15 @@ final class HomeViewController: UIViewController {
             snapshot.appendItems(categoryData, toSection: .category)
         }
 
+        // (3) 위시 리스트
+        if let wishListData = MockData.wishListSection.mainTopData {
+            snapshot.appendSections([.wishList])
+            snapshot.appendItems(wishListData, toSection: .wishList)
+        }
+
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+
 }
 
 extension HomeViewController: UICollectionViewDelegate {}

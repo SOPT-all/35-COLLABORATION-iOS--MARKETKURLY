@@ -33,4 +33,13 @@ struct MockData {
         HomeCategoryItem(id: 11, imageUrl: "icn_home_livecommerce", title: "라이브쇼핑"),
         HomeCategoryItem(id: 12, imageUrl: "icn_home_showcase", title: "쇼케이스")
     ])
+    
+    static let wishListSection = HomeWishListSection(mainTopData: [
+        HomeWishListItem(id: 0, name: "[3개 사면 33%] 비비고 통새우만두 200g", price: 4630, discount: 33, image: "img_home_card_small_shrimp"),
+        HomeWishListItem(id: 1, name: "[사리원] 소불고기 전골", price: 10335, discount: 35, image: "img_home_card_small_bulgogi"),
+        HomeWishListItem(id: 2, name: "아삭하고 달콤한 황금사과 1.3kg (5~7입)", price: 14900, discount: 33, image: "img_home_card_small_apple"),
+        HomeWishListItem(id: 3, name: "[제각각] 당도선별 제주점보 감귤 3kg", price: 12900, discount: 18, image: "img_home_card_small_mandarin"),
+        HomeWishListItem(id: 4, name: "[골라담기][네스프레소] 커피 캡슐 25종 (택2)", price: 4630, discount: 33, image: "img_home_card_small_nespresso")
+    ])
+
 }
