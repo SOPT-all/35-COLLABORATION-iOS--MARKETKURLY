@@ -24,6 +24,8 @@ final class HomeViewController: UIViewController {
                     forCellWithReuseIdentifier: HomeCategoryCell.identifier)
         $0.register(HomeWishListCell.self,
                     forCellWithReuseIdentifier: HomeWishListCell.identifier)
+        $0.register(HomeMidBannerCell.self,
+                    forCellWithReuseIdentifier: HomeMidBannerCell.identifier)
         $0.register(HomeWishListHeaderView.self,
                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: HomeWishListHeaderView.identifier
@@ -94,7 +96,9 @@ final class HomeViewController: UIViewController {
         dataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: contentsCollectionView) { collectionView, indexPath, item in
             switch HomeSection(rawValue: indexPath.section) {
             case .mainBanner:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath) as? HomeMainBannerCell else {
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath
+                ) as? HomeMainBannerCell else {
                     return UICollectionViewCell()
                 }
                 if let bannerSection = item as? HomeMainBannerSection {
@@ -103,7 +107,9 @@ final class HomeViewController: UIViewController {
                 return cell
                 
             case .category:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCategoryCell.identifier, for: indexPath) as? HomeCategoryCell else {
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeCategoryCell.identifier, for: indexPath
+                ) as? HomeCategoryCell else {
                     return UICollectionViewCell()
                 }
                 if let categoryItem = item as? HomeCategoryItem {
@@ -112,11 +118,24 @@ final class HomeViewController: UIViewController {
                 return cell
                 
             case .wishList:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeWishListCell.identifier, for: indexPath) as? HomeWishListCell else {
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeWishListCell.identifier, for: indexPath
+                ) as? HomeWishListCell else {
                     return UICollectionViewCell()
                 }
                 if let wishListItem = item as? HomeWishListItem {
                     cell.setUI(with: wishListItem)
+                }
+                return cell
+
+            case .midBanner:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeMidBannerCell.identifier, for: indexPath
+                ) as? HomeMidBannerCell else {
+                    return UICollectionViewCell()
+                }
+                if let midBannerItem = item as? HomeMidBannerItem {
+                    cell.setUI(with: midBannerItem)
                 }
                 return cell
                 
@@ -124,7 +143,7 @@ final class HomeViewController: UIViewController {
                 return UICollectionViewCell()
             }
         }
-        
+
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil}
             
@@ -141,6 +160,7 @@ final class HomeViewController: UIViewController {
                 return nil
             }
         }
+
     }
 
     
@@ -156,6 +176,8 @@ final class HomeViewController: UIViewController {
                 return self.createCategoryLayout()
             case .wishList:
                 return self.createWishListLayout()
+            case .midBanner:
+                return self.createMidBannerLayout()
             }
         }
     }
@@ -221,7 +243,20 @@ final class HomeViewController: UIViewController {
     }
 
 
+    private func createMidBannerLayout() -> NSCollectionLayoutSection {
+        // 아이템 크기 설정
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
+        // 그룹 크기 설정
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        // 섹션 생성
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 28, leading: 0, bottom: 0, trailing: 0)
+        return section
+    }
     
     
     private func applySnapshot() {
@@ -243,8 +278,15 @@ final class HomeViewController: UIViewController {
             snapshot.appendItems(wishListData, toSection: .wishList)
         }
 
+        // (4) 중간 광고 배너
+        if let midBannerData = MockData.midBannerSection.midBannerData {
+            snapshot.appendSections([.midBanner])
+            snapshot.appendItems(midBannerData, toSection: .midBanner)
+        }
+
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+
 
 }
 

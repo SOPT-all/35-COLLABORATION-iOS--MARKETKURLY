@@ -42,4 +42,7 @@ struct MockData {
         HomeWishListItem(id: 4, name: "[골라담기][네스프레소] 커피 캡슐 25종 (택2)", price: 4630, discount: 33, image: "img_home_card_small_nespresso")
     ])
 
+    static let midBannerSection = HomeMidBannerSection(midBannerData: [
+        HomeMidBannerItem(id: 0, imageUrl: "img_home_banner_small")
+    ])
 }

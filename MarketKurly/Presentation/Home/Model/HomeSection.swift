@@ -9,4 +9,5 @@ enum HomeSection: Int, Hashable {
     case mainBanner
     case category
     case wishList
+    case midBanner
 }
