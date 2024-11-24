@@ -21,10 +21,33 @@ final class HomeViewController: UIViewController {
     
     private let scrollTab = HomeScrollTab()
     
+    private let contentsScrollView = UIScrollView()
+    
+    private let contentsStackView = UIStackView().then {
+        $0.backgroundColor = .gray
+    }
+    
+    private let topBanner = HomeMainBannerView().then {
+        $0.autoScrollDuration = 5.0
+        $0.isAutoScrollEnabled = true
+    }
+    
+    
+    let bannerImagesMock = ["img_home_banner_large_1",
+                            "img_home_banner_large_2",
+                            "img_home_banner_large_3",
+                            "img_home_banner_large_4",
+                            "img_home_banner_large_5",
+                            "img_home_banner_large_6",
+                            "img_home_banner_large_7",
+                            "img_home_banner_large_8"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         makeUI()
+        setUI()
         bindActions()
     }
 
@@ -34,7 +57,12 @@ final class HomeViewController: UIViewController {
         
         view.addSubviews(
             topNavigation,
-            scrollTab
+            scrollTab,
+            contentsScrollView.addSubviews(
+                contentsStackView.addArrangedSubviews(
+                    topBanner
+                )
+            )
         )
         
         topNavigation.snp.makeConstraints {
@@ -48,7 +76,20 @@ final class HomeViewController: UIViewController {
             $0.horizontalEdges.equalToSuperview()
         }
         
-        scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택"], animated: false)
+        contentsScrollView.snp.makeConstraints {
+            $0.top.equalTo(scrollTab.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-90)
+        }
+        
+        contentsStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
+        
+        topBanner.snp.makeConstraints {
+            $0.height.equalTo(278)
+        }
     }
     
     
@@ -59,6 +100,17 @@ final class HomeViewController: UIViewController {
     
                             @objc private func scrollTabValueDidChange(_ sender: HomeScrollTab) {
         print("Scroll Tab index changed: \(sender.selectedIndex)")
+    }
+    
+    
+    private func setUI() {
+        // 스크롤 탭 세팅
+        scrollTab.setTab(items: ["컬리추천", "베스트", "신상품", "알뜰쇼핑", "특가/혜택"],
+                         animated: false)
+        
+        // 탑 배너 세팅
+        topBanner.setImages(bannerImagesMock)
+        topBanner.startAutoScroll()  // 자동 스크롤 시작
     }
 }
 
