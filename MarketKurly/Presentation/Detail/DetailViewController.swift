@@ -11,6 +11,7 @@ import SnapKit
 class DetailViewController: UIViewController {
     
     private var isMembersSectionVisible = false
+    private let sellerInfo = SellerInfo()
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -179,6 +180,13 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    private let tempImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .gray
+        return imageView
+    }()
+    
     private let wishButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "icn_save_default"), for: .normal)
@@ -217,10 +225,10 @@ class DetailViewController: UIViewController {
         view.addSubviews(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton)
+        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton, sellerInfo)
         
         
-        contentView.addSubviews(wishButton, purchaseButton)
+        contentView.addSubviews(tempImageView, wishButton, purchaseButton)
     }
     
     private func setLayout() {
@@ -309,7 +317,25 @@ class DetailViewController: UIViewController {
             $0.width.equalTo(344)
             $0.height.equalTo(44)
         }
-
+        
+        sellerInfo.snp.makeConstraints{
+            if isMembersSectionVisible {
+                $0.top.equalTo(joinMembersButton.snp.bottom).offset(19.08)
+            } else {
+                $0.top.equalTo(membersButton.snp.bottom).offset(10)
+            }
+            $0.leading.trailing.equalToSuperview()
+            //            $0.bottom.equalTo(contentView)
+        }
+        
+        tempImageView.snp.makeConstraints {
+            $0.top.equalTo(sellerInfo.snp.bottom).offset(7)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(491)
+            $0.bottom.equalTo(contentView)
+        }
+        
         wishButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(11)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
@@ -350,6 +376,19 @@ class DetailViewController: UIViewController {
             self.membersButton.setImage(icon, for: .normal)
         }
         
+        self.sellerInfo.snp.removeConstraints()
+        
+        self.sellerInfo.snp.makeConstraints {
+            if self.isMembersSectionVisible {
+                $0.top.equalTo(self.joinMembersButton.snp.bottom).offset(19.08)
+            } else {
+                $0.top.equalTo(self.membersButton.snp.bottom).offset(10)
+            }
+            $0.leading.trailing.equalToSuperview()
+            //            $0.bottom.equalTo(self.contentView)
+        }
+        
         self.view.layoutIfNeeded()
     }
 }
+
