@@ -53,9 +53,10 @@ class RelatedGoods: UIView {
         tableView.do{
             $0.register(RelatedGoodsCell.self,
                         forCellReuseIdentifier: RelatedGoodsCell.identifier)
-            $0.rowHeight = 48
+            $0.rowHeight = 64
             $0.separatorStyle = .none
             $0.dataSource = self
+            $0.delegate = self
         }
     }
     
@@ -99,5 +100,14 @@ extension RelatedGoods: UITableViewDataSource {
         cell.configure(goods: goodsList[indexPath.row])
         
         return cell
+    }
+}
+
+extension RelatedGoods: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        return indexPath.row == goodsList.count - 1 ? 48 : 64
     }
 }

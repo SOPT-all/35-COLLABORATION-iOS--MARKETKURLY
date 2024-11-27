@@ -76,7 +76,7 @@ class RelatedGoodsCell: UITableViewCell {
     
     private func setLayout() {
         goodsImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
             $0.width.height.equalTo(48)
         }
@@ -97,7 +97,7 @@ class RelatedGoodsCell: UITableViewCell {
         }
         
         addButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.centerY.equalTo(goodsImageView)
             $0.trailing.equalToSuperview().offset(-16)
             $0.width.equalTo(67)
             $0.height.equalTo(34)
