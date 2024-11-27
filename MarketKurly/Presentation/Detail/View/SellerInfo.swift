@@ -11,6 +11,8 @@ import SnapKit
 
 class SellerInfo: UIView {
     
+    private var goods: Goods?
+    
     private let deliveryTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "배송"
@@ -19,21 +21,9 @@ class SellerInfo: UIView {
         return label
     }()
     
-    private let deliveryInfoLabel: UILabel = {
+    private let deliveryTypeLabel: UILabel = {
         let label = UILabel()
-        
-        let fullText = "샛별배송\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
-        let attributedText = NSMutableAttributedString(string: fullText)
-        
-        attributedText.addAttribute(.font, value: MarketKurlyFont.bodySemiBold14.font, range: NSRange(location: 0, length: 4)) // bodyRegular14 확인 필요
-        attributedText.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: 4))
-        
-        attributedText.addAttribute(.font, value: MarketKurlyFont.captionRegular12.font, range: NSRange(location: 5, length: fullText.count - 5))
-        attributedText.addAttribute(.foregroundColor, value: UIColor.gray7, range: NSRange(location: 5, length: fullText.count - 5))
-        
-        label.attributedText = attributedText
         label.numberOfLines = 0
-        
         return label
     }()
     
@@ -83,6 +73,8 @@ class SellerInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configure(with: Goods.infoMockData[0])
+        
         setStyle()
         setUI()
         setLayout()
@@ -98,7 +90,7 @@ class SellerInfo: UIView {
     
     private func setUI() {
         deliveryStackView.addArrangedSubview(deliveryTitleLabel)
-        deliveryStackView.addArrangedSubview(deliveryInfoLabel)
+        deliveryStackView.addArrangedSubview(deliveryTypeLabel)
         
         sellerStackView.addArrangedSubview(sellerTitleLabel)
         sellerStackView.addArrangedSubview(sellerNameLabel)
@@ -128,5 +120,27 @@ class SellerInfo: UIView {
             $0.height.equalTo(119)
         }
     }
+    
+    func configure(with goods: Goods) {
+        self.goods = goods
+        
+        if let deliveryType = goods.deliveryType {
+            let fullText = "\(deliveryType)\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
+            let attributedText = NSMutableAttributedString(string: fullText)
+            
+            attributedText.addAttributes([
+                .font: MarketKurlyFont.bodySemiBold14.font,
+                .foregroundColor: UIColor.black
+            ], range: NSRange(location: 0, length: deliveryType.count))
+            
+            attributedText.addAttributes([
+                .font: MarketKurlyFont.captionRegular12.font,
+                .foregroundColor: UIColor.gray7
+            ], range: NSRange(location: deliveryType.count, length: fullText.count - deliveryType.count))
+            
+            deliveryTypeLabel.attributedText = attributedText
+        }
+    }
+    
 }
 
