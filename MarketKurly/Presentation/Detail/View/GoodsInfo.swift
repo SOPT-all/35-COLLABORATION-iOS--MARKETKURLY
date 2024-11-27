@@ -98,17 +98,14 @@ class GoodsInfo: UIView {
         return label
     }
     
-    func configure(with data: Goods) {
-        self.goods = data
-        
-        addItemToStackView(title: "포장타입", value: goods?.packagingType)
-        addItemToStackView(title: "판매단위", value: goods?.salesUnit)
-        addItemToStackView(title: "중량/용량", value: goods?.weight)
-        addItemToStackView(title: "알레르기정보", value: goods?.allergy)
-        addItemToStackView(title: "소비기한(또는 유통기한)정보", value: goods?.expirationDate)
-        addItemToStackView(title: "원산지", value: goods?.origin)
-        addItemToStackView(title: "당도", value: goods?.brix.map { "\($0) Brix 이상" })
-        
-        addItemToStackView(title: "안내사항", value: goods?.notice)
+    func configure(with goods: Goods) {
+        addItemToStackView(title: "포장타입", value: goods.packagingType)
+        addItemToStackView(title: "판매단위", value: goods.salesUnit)
+        addItemToStackView(title: "중량/용량", value: goods.weight)
+        addItemToStackView(title: "알레르기정보", value: goods.allergy)
+        addItemToStackView(title: "소비기한(또는 유통기한)정보", value: goods.expirationDate)
+        addItemToStackView(title: "원산지", value: goods.origin)
+        addItemToStackView(title: "당도", value: goods.brix.map { "\($0) Brix 이상" })
+        addItemToStackView(title: "안내사항", value: goods.notice)
     }
 }

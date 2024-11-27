@@ -105,10 +105,20 @@ class RelatedGoodsCell: UITableViewCell {
     }
     
     func configure(goods: Goods) {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        func formattedPrice(_ price: Int) -> String {
+            if let formattedPrice = numberFormatter.string(from: NSNumber(value: price)) {
+                return formattedPrice + "원"
+            }
+            return "\(price)원"
+        }
+        
         goodsImageView.image = goods.goodsImage
         goodsNameLabel.text = goods.goodsName
         discountRateLabel.text = "\(goods.discountRate)%"
-        discountPriceLabel.text = "\(goods.discountPrice)원"
+        discountPriceLabel.text = formattedPrice(goods.discountPrice)
     }
 }
 

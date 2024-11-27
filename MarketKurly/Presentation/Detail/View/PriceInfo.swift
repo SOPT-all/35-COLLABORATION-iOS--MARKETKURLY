@@ -267,8 +267,6 @@ class PriceInfo: UIView {
     }
     
     func configure(with goods: Goods) {
-        self.goods = goods
-        
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
