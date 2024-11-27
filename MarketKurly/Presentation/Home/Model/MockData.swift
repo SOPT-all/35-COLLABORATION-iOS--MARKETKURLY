@@ -45,4 +45,12 @@ struct MockData {
     static let midBannerSection = HomeMidBannerSection(midBannerData: [
         HomeMidBannerItem(id: 0, imageUrl: "img_home_banner_small")
     ])
+    
+    static let rankingListSection = HomeRankingListSection(mainMiddleData: [
+        HomeRankingListItem(id: 0, name: "[사미헌] 갈비탕", price: 11050, discount: 15, image: "img_home_card_large_galbeetang"),
+        HomeRankingListItem(id: 1, name: "[거대곰탕] 곰탕", price: 12750, discount: 15, image: "img_home_card_large_gomtang"),
+        HomeRankingListItem(id: 2, name: "[KF365] 16Brix 고당도 상주 샤인머스캣", price: 9990, discount: 33, image: "img_home_card_large_shinemusket"),
+        HomeRankingListItem(id: 3, name: "[바른식] 강릉식 짬뽕순두부 찌개", price: 7654, discount: 14, image: "img_home_card_large_jjampong"),
+        HomeRankingListItem(id: 4, name: "[스윗밸런스] 오늘의 샐러드 10종", price: 4760, discount: 15, image: "img_home_card_large_salad")
+    ])
 }

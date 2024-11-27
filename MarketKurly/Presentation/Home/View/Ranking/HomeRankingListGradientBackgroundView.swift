@@ -6,32 +6,35 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 final class HomeRankingListGradientBackgroundView: UICollectionReusableView {
-    
-    static let identifier = "HomeRankingGradientBackgroundView"
+    static let identifier = "HomeRankingListGradientBackgroundView"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupBackground()
+        setupGradient()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBackground() {
+    private func setupGradient() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.systemGray6.cgColor, UIColor.white.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.gradientGray1.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.frame = bounds
-        layer.insertSublayer(gradientLayer, at: 0)
+        layer.addSublayer(gradientLayer)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        (layer.sublayers?.first as? CAGradientLayer)?.frame = bounds
+        if let gradientLayer = layer.sublayers?.first as? CAGradientLayer {
+            gradientLayer.frame = bounds
+        }
     }
 }

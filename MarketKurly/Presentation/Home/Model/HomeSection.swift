@@ -10,4 +10,5 @@ enum HomeSection: Int, Hashable {
     case category
     case wishList
     case midBanner
+    case rankingList
 }

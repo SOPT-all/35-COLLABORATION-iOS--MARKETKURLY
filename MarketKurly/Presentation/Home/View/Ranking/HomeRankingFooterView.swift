@@ -24,15 +24,16 @@ final class HomeRankingFooterView: UICollectionReusableView {
         config.imagePlacement = .trailing
         
         // 텍스트 설정
-        config.attributedTitle = AttributedString(.makeAttributedString(text: "담기",
+        config.attributedTitle = AttributedString(.makeAttributedString(text: "전체보기",
                                                                         color: .gray7,
-                                                                        font: MarketKurlyFont.captionMedium12.font,
+                                                                        font: MarketKurlyFont.bodySemiBold14.font,
                                                                         textAlignment: .center))
         
-        // 테두리 및 border 설정
-        config.background.strokeWidth = 1
-        config.background.strokeColor = UIColor.coolGray2
+        // 테두리 설정
         config.background.cornerRadius = 4
+        
+        // 배경색 설정
+        config.background.backgroundColor = .white
         
         $0.configuration = config
     }
@@ -57,7 +58,7 @@ final class HomeRankingFooterView: UICollectionReusableView {
         
         showMoreButton.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview().inset(23)
-            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(46)
         }
     }

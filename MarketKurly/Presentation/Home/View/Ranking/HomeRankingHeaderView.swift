@@ -24,7 +24,8 @@ final class HomeRankingHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "🏆 실시간 인기 랭킹 🏆",
                                                   color: .gray8,
-                                                  font: MarketKurlyFont.titleEmoji22.font)
+                                                  font: MarketKurlyFont.titleBody18.font,
+                                                  textAlignment: .center)
     }
     
     private let descriptionLabel = UILabel().then {
@@ -55,9 +56,7 @@ final class HomeRankingHeaderView: UICollectionReusableView {
         }
         
         titleStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(23)
-            $0.centerY.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(46)
+            $0.center.equalToSuperview()
         }
     }
 }

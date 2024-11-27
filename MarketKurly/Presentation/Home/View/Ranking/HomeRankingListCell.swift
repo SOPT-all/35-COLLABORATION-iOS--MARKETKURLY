@@ -13,7 +13,11 @@ final class HomeRankingListCell: UICollectionViewCell {
     
     static let identifier = "HomeRankingListCell"
     
-    private let containerView = UIView()
+    private let containerView = UIView().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+    }
     
     private let productImageView = UIImageView()
     
@@ -110,20 +114,21 @@ final class HomeRankingListCell: UICollectionViewCell {
             $0.top.left.right.equalToSuperview()
         }
         
-        productInfoContainerView.snp.makeConstraints {
-            $0.top.equalTo(productImageView.snp.bottom)
-            $0.horizontalEdges.equalToSuperview().inset(12)
-        }
-        
         cartButton.snp.makeConstraints {
-            $0.top.equalTo(productImageView.snp.bottom).offset(6)
+            $0.bottom.equalToSuperview().inset(12)
             $0.horizontalEdges.equalToSuperview().inset(12)
             $0.height.equalTo(30)
+        }
+        
+        productInfoContainerView.snp.makeConstraints {
+            $0.top.equalTo(productImageView.snp.bottom)
+            $0.bottom.equalTo(cartButton.snp.top)
+            $0.horizontalEdges.equalToSuperview().inset(12)
         }
     }
     
     
-    public func setUI(with item: HomeWishListItem, cellIndex: Int) {
+    public func setUI(with item: HomeRankingListItem, cellIndex: Int) {
         
         if let productImage = item.image {
             productImageView.image = UIImage(named: productImage)

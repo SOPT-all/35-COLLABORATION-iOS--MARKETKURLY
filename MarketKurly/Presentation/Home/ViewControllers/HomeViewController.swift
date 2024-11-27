@@ -145,7 +145,16 @@ final class HomeViewController: UIViewController {
                     cell.setUI(with: midBannerItem)
                 }
                 return cell
-                
+            case .rankingList:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeRankingListCell.identifier, for: indexPath
+                ) as? HomeRankingListCell else {
+                    return UICollectionViewCell()
+                }
+                if let rankingListItem = item as? HomeRankingListItem {
+                    cell.setUI(with: rankingListItem, cellIndex: indexPath.row + 1)
+                }
+                return cell
             default:
                 return UICollectionViewCell()
             }
@@ -155,6 +164,7 @@ final class HomeViewController: UIViewController {
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil}
             
             switch section {
+            // 위시 리스트
             case .wishList:
                 let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
@@ -163,6 +173,28 @@ final class HomeViewController: UIViewController {
                 ) as? HomeWishListHeaderView
                 
                 return header
+            // 랭킹 리스트
+            case .rankingList:
+                switch kind {
+                // 헤더
+                case UICollectionView.elementKindSectionHeader:
+                    let header = collectionView.dequeueReusableSupplementaryView(
+                        ofKind: kind,
+                        withReuseIdentifier: HomeRankingHeaderView.identifier,
+                        for: indexPath
+                    ) as? HomeRankingHeaderView
+                    return header
+                // 푸터
+                case UICollectionView.elementKindSectionFooter:
+                    let footer = collectionView.dequeueReusableSupplementaryView(
+                        ofKind: kind,
+                        withReuseIdentifier: HomeRankingFooterView.identifier,
+                        for: indexPath
+                    ) as? HomeRankingFooterView
+                    return footer
+                default:
+                    return nil
+                }
             default:
                 return nil
             }
@@ -174,7 +206,7 @@ final class HomeViewController: UIViewController {
     
     // 컬렉션 뷰 레이아웃 세팅
     private func createCompositionalLayout() -> UICollectionViewLayout {
-        UICollectionViewCompositionalLayout { sectionIndex, _ in
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
             guard let section = HomeSection(rawValue: sectionIndex) else { return nil }
             switch section {
             case .mainBanner:
@@ -185,8 +217,15 @@ final class HomeViewController: UIViewController {
                 return self.createWishListLayout()
             case .midBanner:
                 return self.createMidBannerLayout()
+            case .rankingList:
+                return self.createRankingSection()
             }
         }
+        
+        layout.register(HomeRankingListGradientBackgroundView.self,
+                        forDecorationViewOfKind: HomeRankingListGradientBackgroundView.identifier)
+        
+        return layout
     }
     
     
@@ -224,18 +263,19 @@ final class HomeViewController: UIViewController {
     }
     
     
+    // 위시 리스트 레이아웃 세팅
     private func createWishListLayout() -> NSCollectionLayoutSection {
         // 아이템 크기: 145x330
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(145), heightDimension: .absolute(330))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(145 + 7), heightDimension: .absolute(330))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(145), heightDimension: .absolute(330))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(7) // 아이템 간 간격 설정
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16) // 그룹 양쪽 간격 16px
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        section.interGroupSpacing = 7
 
         // 헤더 추가
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(70))
@@ -250,6 +290,7 @@ final class HomeViewController: UIViewController {
     }
 
 
+    // 중간 광고 배너 레이아웃 세팅
     private func createMidBannerLayout() -> NSCollectionLayoutSection {
         // 아이템 크기 설정
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
@@ -264,6 +305,50 @@ final class HomeViewController: UIViewController {
         section.contentInsets = NSDirectionalEdgeInsets(top: 28, leading: 0, bottom: 0, trailing: 0)
         return section
     }
+    
+    
+    // 랭킹 리스트 레이아웃 세팅
+    private func createRankingSection() -> NSCollectionLayoutSection {
+        // Item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(183), heightDimension: .absolute(344))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // Group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(183), heightDimension: .absolute(344))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPaging
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        section.interGroupSpacing = 11
+
+        // Header
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(113))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+        // Footer
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(92))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
+        
+        // Decoration
+        let backgroundView = NSCollectionLayoutDecorationItem.background(elementKind: HomeRankingListGradientBackgroundView.identifier)
+        section.decorationItems = [backgroundView]
+
+        // 헤더와 푸터 설정
+        section.boundarySupplementaryItems = [header, footer]
+
+        return section
+    }
+
     
     
     private func applySnapshot() {
@@ -289,6 +374,12 @@ final class HomeViewController: UIViewController {
         if let midBannerData = MockData.midBannerSection.midBannerData {
             snapshot.appendSections([.midBanner])
             snapshot.appendItems(midBannerData, toSection: .midBanner)
+        }
+        
+        // (5) 랭킹 리스트
+        if let rankingListData = MockData.rankingListSection.mainMiddleData {
+            snapshot.appendSections([.rankingList])
+            snapshot.appendItems(rankingListData, toSection: .rankingList)
         }
 
         dataSource.apply(snapshot, animatingDifferences: false)
