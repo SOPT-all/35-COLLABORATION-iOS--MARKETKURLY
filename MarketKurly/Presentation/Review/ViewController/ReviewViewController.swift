@@ -51,7 +51,6 @@ class ReviewViewController: UIViewController {
             reviewTableView.sectionHeaderTopPadding = 0
         }
         
-        // 기본 스티키 헤더 비활성화
         reviewTableView.tableHeaderView = UIView()
     }
 }
