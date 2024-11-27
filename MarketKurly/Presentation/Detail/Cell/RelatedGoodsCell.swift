@@ -35,7 +35,7 @@ class RelatedGoodsCell: UITableViewCell {
         return label
     }()
     
-    private let priceLabel: UILabel = {
+    private let discountPriceLabel: UILabel = {
         let label = UILabel()
         label.font = MarketKurlyFont.bodySemiBold14.font // bodyExtraBold14 확인 필요
         label.textColor = .gray7
@@ -71,7 +71,7 @@ class RelatedGoodsCell: UITableViewCell {
     }
     
     private func setUI() {
-        addSubviews(goodsImageView, goodsNameLabel, discountRateLabel, priceLabel, addButton)
+        addSubviews(goodsImageView, goodsNameLabel, discountRateLabel, discountPriceLabel, addButton)
     }
     
     private func setLayout() {
@@ -91,7 +91,7 @@ class RelatedGoodsCell: UITableViewCell {
             $0.leading.equalTo(goodsImageView.snp.trailing).offset(12)
         }
         
-        priceLabel.snp.makeConstraints{
+        discountPriceLabel.snp.makeConstraints{
             $0.top.equalTo(goodsNameLabel.snp.bottom).offset(2)
             $0.leading.equalTo(discountRateLabel.snp.trailing).offset(7)
         }
@@ -107,8 +107,8 @@ class RelatedGoodsCell: UITableViewCell {
     func configure(goods: Goods) {
         goodsImageView.image = goods.goodsImage
         goodsNameLabel.text = goods.goodsName
-        discountRateLabel.text = goods.discountRate
-        priceLabel.text = goods.price
+        discountRateLabel.text = "\(goods.discountRate)%"
+        discountPriceLabel.text = "\(goods.discountPrice)원"
     }
 }
 

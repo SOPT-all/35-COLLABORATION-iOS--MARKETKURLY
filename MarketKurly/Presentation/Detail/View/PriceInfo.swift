@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 
 protocol PriceInfoDelegate: AnyObject {
@@ -14,30 +13,29 @@ protocol PriceInfoDelegate: AnyObject {
 }
 
 class PriceInfo: UIView {
+    
     weak var delegate: PriceInfoDelegate?
+    private var goods: Goods?
     var isMembersSectionVisible = false
     
     private let goodsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .gray
-        
         return imageView
     }()
     
-    private let deliveryLabel: UILabel = {
+    private let deliveryTypeLabel: UILabel = {
         let label = UILabel()
         label.font = MarketKurlyFont.captionSemiBold12.font
         label.textColor = .gray5
-        label.text = "샛별배송"
         return label
     }()
     
     private let goodsNameLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyRegular18.font // bodySemiBold18 확인 필요
+        label.font = MarketKurlyFont.bodyRegular18.font
         label.textColor = .gray7
-        label.text = "아삭하고 달콤한 황금사과 1.3kg (5~7입) [품종: 시나노골드]"
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
@@ -54,7 +52,6 @@ class PriceInfo: UIView {
         let label = UILabel()
         label.font = MarketKurlyFont.bodyRegular18.font
         label.textColor = .gray7
-        label.text = "원산지: 국산"
         return label
     }()
     
@@ -62,15 +59,6 @@ class PriceInfo: UIView {
         let label = UILabel()
         label.font = MarketKurlyFont.bodyMedium16.font
         label.textColor = .gray4
-        
-        let attributeString = NSAttributedString(
-            string: "14,900원",
-            attributes: [
-                .strikethroughStyle: NSUnderlineStyle.single.rawValue
-            ]
-        )
-        label.attributedText = attributeString
-        
         return label
     }()
     
@@ -83,77 +71,49 @@ class PriceInfo: UIView {
     
     private let discountRateLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font // titleBold24 확인 필요
+        label.font = MarketKurlyFont.bodyBold24.font
         label.textColor = .red
-        label.text = "13%"
         return label
     }()
     
     private let discountPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font // titleBold24 확인 필요
+        label.font = MarketKurlyFont.bodyBold24.font
         label.textColor = .gray8
-        
-        let fullText = "12,900원"
-        let attributedString = NSMutableAttributedString(string: fullText)
-        
-        if let range = fullText.range(of: "원") {
-            attributedString.addAttribute(
-                .font,
-                value: MarketKurlyFont.bodyBold16.font,
-                range: NSRange(range, in: fullText)
-            )
-        }
-        
-        label.attributedText = attributedString
         return label
     }()
     
     lazy var membersButton: UIButton = {
         let button = UIButton()
-        let icon = UIImage(named: "icn_goods_arrow_up")
-        button.setImage(icon, for: .normal)
+        button.setImage(UIImage(named: "icn_goods_arrow_up"), for: .normal)
         button.tintColor = .mint3
         button.setTitle("멤버스 최대혜택가 ", for: .normal)
         button.setTitleColor(.mint3, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.titleLabel?.font = MarketKurlyFont.bodyBold16.font
-        
         return button
     }()
     
     private let membersRateLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font // titleBold24 확인 필요
+        label.font = MarketKurlyFont.bodyBold24.font
         label.textColor = .mint3
-        label.text = "26%"
         label.isHidden = true
         return label
     }()
     
     private let membersPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font // titleBold24 확인 필요
+        label.font = MarketKurlyFont.bodyBold24.font
         label.textColor = .mint3
-        
-        let fullText = "10,900원"
-        let attributedString = NSMutableAttributedString(string: fullText)
-        
-        if let range = fullText.range(of: "원") { // bodyExtraBold14 확인 필요
-            attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14, weight: .semibold), range: NSRange(range, in: fullText))
-        }
-        
-        label.attributedText = attributedString
         label.isHidden = true
         return label
     }()
     
     let joinMembersButton: UIButton = {
         let button = UIButton()
-        
         button.titleLabel?.font = MarketKurlyFont.captionSemiBold12.font
         button.setTitleColor(.gray7, for: .normal)
-        
         button.backgroundColor = .mint1
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
@@ -177,12 +137,13 @@ class PriceInfo: UIView {
         }
         
         button.isHidden = true
-        
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configure(with: Goods.infoMockData[0])
         
         setStyle()
         setUI()
@@ -201,7 +162,7 @@ class PriceInfo: UIView {
     }
     
     private func setUI() {
-        addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton)
+        addSubviews(goodsImageView, deliveryTypeLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton)
     }
     
     private func setLayout() {
@@ -212,14 +173,13 @@ class PriceInfo: UIView {
             $0.height.equalTo(491)
         }
         
-        deliveryLabel.snp.makeConstraints{
+        deliveryTypeLabel.snp.makeConstraints{
             $0.top.equalTo(goodsImageView.snp.bottom).offset(21)
             $0.leading.equalToSuperview().offset(16)
-            
         }
         
         goodsNameLabel.snp.makeConstraints{
-            $0.top.equalTo(deliveryLabel.snp.bottom).offset(7)
+            $0.top.equalTo(deliveryTypeLabel.snp.bottom).offset(7)
             $0.leading.equalToSuperview().offset(16)
             $0.width.equalTo(309)
         }
@@ -237,7 +197,6 @@ class PriceInfo: UIView {
         costPriceLabel.snp.makeConstraints {
             $0.top.equalTo(originLabel.snp.bottom).offset(13.82)
             $0.leading.equalToSuperview().offset(16)
-            
         }
         
         infoButton.snp.makeConstraints{
@@ -249,19 +208,16 @@ class PriceInfo: UIView {
         discountRateLabel.snp.makeConstraints {
             $0.top.equalTo(costPriceLabel.snp.bottom).offset(3.37)
             $0.leading.equalToSuperview().offset(16)
-            
         }
         
         discountPriceLabel.snp.makeConstraints {
             $0.leading.equalTo(discountRateLabel.snp.trailing).offset(11)
             $0.centerY.equalTo(discountRateLabel)
-            
         }
         
         membersButton.snp.makeConstraints {
             $0.top.equalTo(discountRateLabel.snp.bottom).offset(7)
             $0.leading.equalToSuperview().offset(16)
-            
         }
         
         membersRateLabel.snp.makeConstraints {
@@ -309,4 +265,49 @@ class PriceInfo: UIView {
         
         delegate?.didTapMembersButton(isMembersSectionVisible: isMembersSectionVisible)
     }
+    
+    func configure(with goods: Goods) {
+        self.goods = goods
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        func formattedPrice(_ price: Int) -> String {
+            if let formattedPrice = numberFormatter.string(from: NSNumber(value: price)) {
+                return formattedPrice + "원"
+            }
+            return "\(price)원"
+        }
+        
+        if let goodsName = goods.goodsName as String?,
+           let origin = goods.origin as String?,
+           let costPrice = goods.costPrice as Int?,
+           let discountRate = goods.discountRate as Int?,
+           let discountPrice = goods.discountPrice as Int?,
+           let membersRate = goods.membersRate as Int?,
+           let membersPrice = goods.membersPrice as Int? {
+            
+            goodsNameLabel.text = goodsName
+            originLabel.text = "원산지: \(origin)"
+            
+            let costPriceText = formattedPrice(costPrice)
+            costPriceLabel.attributedText = NSAttributedString(string: costPriceText, attributes: [
+                .strikethroughStyle: NSUnderlineStyle.single.rawValue
+            ])
+            
+            discountRateLabel.text = "\(discountRate)%"
+            discountPriceLabel.text = formattedPrice(discountPrice)
+            membersRateLabel.text = "\(membersRate)%"
+            membersPriceLabel.text = formattedPrice(membersPrice)
+            
+        } else {
+            goodsNameLabel.text = "정보 없음"
+            originLabel.text = "정보 없음"
+            discountRateLabel.text = "정보 없음"
+            discountPriceLabel.text = "정보 없음"
+            membersRateLabel.text = "정보 없음"
+            membersPriceLabel.text = "정보 없음"
+        }
+    }
 }
+
