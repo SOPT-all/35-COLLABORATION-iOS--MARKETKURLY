@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     
     private let sellerInfo = SellerInfo()
     private let relatedGoods = RelatedGoods()
+    private let goodsInfo = GoodsInfo()
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -228,7 +229,7 @@ class DetailViewController: UIViewController {
         view.addSubviews(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton, sellerInfo, relatedGoods)
+        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton, sellerInfo, relatedGoods, goodsInfo)
         
         
         contentView.addSubviews(tempImageView, wishButton, purchaseButton)
@@ -335,8 +336,13 @@ class DetailViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        tempImageView.snp.makeConstraints {
+        goodsInfo.snp.makeConstraints{
             $0.top.equalTo(relatedGoods.snp.bottom).offset(7)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        tempImageView.snp.makeConstraints {
+            $0.top.equalTo(goodsInfo.snp.bottom).offset(7)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview()
             $0.height.equalTo(491)

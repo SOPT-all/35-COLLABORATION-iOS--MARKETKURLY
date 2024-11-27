@@ -12,7 +12,7 @@ import SnapKit
 class RelatedGoods: UIView {
     
     private let tableView = UITableView()
-    private let goodsList = Goods.mockData
+    private let goodsList = Goods.relatedMockData
     
     private let otherCustomersViewedLabel: UILabel = {
         let label = UILabel()

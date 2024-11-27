@@ -12,10 +12,36 @@ struct Goods {
     let goodsName: String
     let discountRate: String
     let price: String
+    
+    var packagingType: String?
+    var salesUnit: String?
+    var weight: String?
+    var allergy: String?
+    var expirationDate: String?
+    var origin: String?
+    var brix: Float?
+    var notice: String?
+    
 }
 
 extension Goods {
-    static let mockData: [Goods] = [
+    static let Data: [Goods] = [
+        Goods(
+            goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
+            goodsName: "[제철] 청송 사과 1.5kg (4~6입)",
+            discountRate: "12%",
+            price: "14,900원",
+            
+            packagingType: "냉장 (종이상자)",
+            salesUnit: "1박스",
+            weight: "1.5kg 내외",
+            expirationDate: "농산물로 별도의 소비기한은 없으나 가급적 빠르게 드시기 바랍니다."
+            
+            
+        )
+    ]
+    
+    static let relatedMockData: [Goods] = [
         Goods(
             goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
             goodsName: "[KF365] 유명산지 고당도사과 1.5k...",
