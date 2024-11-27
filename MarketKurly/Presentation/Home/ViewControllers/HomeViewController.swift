@@ -28,8 +28,15 @@ final class HomeViewController: UIViewController {
                     forCellWithReuseIdentifier: HomeMidBannerCell.identifier)
         $0.register(HomeWishListHeaderView.self,
                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: HomeWishListHeaderView.identifier
-        )
+                    withReuseIdentifier: HomeWishListHeaderView.identifier)
+        $0.register(HomeRankingListCell.self,
+                    forCellWithReuseIdentifier: HomeRankingListCell.identifier)
+        $0.register(HomeRankingHeaderView.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: HomeRankingHeaderView.identifier)
+        $0.register(HomeRankingFooterView.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                    withReuseIdentifier: HomeRankingFooterView.identifier)
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>!

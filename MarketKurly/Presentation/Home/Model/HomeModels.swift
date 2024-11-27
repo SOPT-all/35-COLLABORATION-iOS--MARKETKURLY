@@ -36,6 +36,18 @@ struct HomeWishListItem: Codable, Hashable {
     let image: String?
 }
 
+struct HomeRankingListSection: Codable, Hashable {
+    let mainMiddleData: [HomeRankingListItem]?
+}
+
+struct HomeRankingListItem: Codable, Hashable {
+    let id: Int?
+    let name: String?
+    let price: Int?
+    let discount: Int?
+    let image: String?
+}
+
 struct HomeMidBannerSection: Codable, Hashable {
     let midBannerData: [HomeMidBannerItem]?
 }
