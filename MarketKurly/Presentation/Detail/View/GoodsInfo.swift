@@ -24,7 +24,7 @@ class GoodsInfo: UIView {
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 15
         stackView.alignment = .leading
         return stackView
     }()
