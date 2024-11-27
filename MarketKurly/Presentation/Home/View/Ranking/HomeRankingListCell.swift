@@ -19,7 +19,12 @@ final class HomeRankingListCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    private let productImageView = UIImageView()
+    private let productImageView = UIImageView().then {
+        $0.layer.cornerRadius = 5
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.backgroundColor = .coolGray2
+    }
     
     private let rankingLabel = UILabel()
     
@@ -131,7 +136,8 @@ final class HomeRankingListCell: UICollectionViewCell {
     public func setUI(with item: HomeRankingListItem, cellIndex: Int) {
         
         if let productImage = item.image {
-            productImageView.image = UIImage(named: productImage)
+            let imageURL = URL(string: productImage)
+            productImageView.kf.setImage(with: imageURL)
         }
         
         rankingLabel.attributedText = .makeAttributedString(text: "\(cellIndex)",

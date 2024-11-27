@@ -54,7 +54,8 @@ final class HomeViewController: UIViewController {
         makeUI()
         setUI()
         bindActions()
-        applySnapshot()
+        
+        fetchHomeData()
     }
 
     
@@ -410,7 +411,7 @@ final class HomeViewController: UIViewController {
     
     
     // Snapshot 적용
-    private func applySnapshot() {
+    private func applySnapshot(with data: HomeDto) {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
 
         // (1) 메인 배너
@@ -424,7 +425,7 @@ final class HomeViewController: UIViewController {
         }
 
         // (3) 위시 리스트
-        if let wishListData = MockData.wishListSection.mainTopData {
+        if let wishListData = data.mainTopProducts {
             snapshot.appendSections([.wishList])
             snapshot.appendItems(wishListData, toSection: .wishList)
         }
@@ -436,20 +437,32 @@ final class HomeViewController: UIViewController {
         }
         
         // (5) 랭킹 리스트
-        if let rankingListData = MockData.rankingListSection.mainMiddleData {
+        if let rankingListData = data.mainMiddleProducts {
             snapshot.appendSections([.rankingList])
             snapshot.appendItems(rankingListData, toSection: .rankingList)
         }
         
-        if let rankingListData = MockData.recommendListSection.mainBottomData {
+        if let recommendListData = data.mainBottomData  {
             snapshot.appendSections([.recommendList])
-            snapshot.appendItems(rankingListData, toSection: .recommendList)
+            snapshot.appendItems(recommendListData, toSection: .recommendList)
         }
 
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
 
+    private func fetchHomeData() {
+        // API 호출
+        HomeApi.shared.getHomeData { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let data):
+                self.applySnapshot(with: data)
+            case .failure(let error):
+                print("Log - \(error.errorMessage)")
+            }
+        }
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate {}

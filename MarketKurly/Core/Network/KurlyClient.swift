@@ -35,8 +35,8 @@ final class KurlyClient: NetworkRequestable {
                 switch response.result {
                 case .success:
                     do {
-                        let decodedData = try JSONDecoder().decode(T.self, from: data)
-                        completion(.success(decodedData))
+                        let decodedData = try JSONDecoder().decode(ResponseData<T>.self, from: data)
+                        completion(.success(decodedData.data))
                     } catch {
                         completion(.failure(.parsingError))
                     }

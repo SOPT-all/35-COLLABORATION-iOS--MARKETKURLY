@@ -25,7 +25,7 @@ struct HomeCategoryItem: Codable, Hashable {
 }
 
 struct HomeWishListSection: Codable, Hashable {
-    let mainTopData: [HomeWishListItem]?
+    let mainTopProducts: [HomeWishListItem]?
 }
 
 struct HomeWishListItem: Codable, Hashable {
@@ -37,7 +37,7 @@ struct HomeWishListItem: Codable, Hashable {
 }
 
 struct HomeRankingListSection: Codable, Hashable {
-    let mainMiddleData: [HomeRankingListItem]?
+    let mainMiddleProducts: [HomeRankingListItem]?
 }
 
 struct HomeRankingListItem: Codable, Hashable {

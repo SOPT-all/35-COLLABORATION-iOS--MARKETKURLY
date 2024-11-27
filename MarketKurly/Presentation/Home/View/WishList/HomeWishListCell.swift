@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 final class HomeWishListCell: UICollectionViewCell {
     
@@ -15,7 +16,12 @@ final class HomeWishListCell: UICollectionViewCell {
     
     private let containerView = UIView()
     
-    private let productImageView = UIImageView()
+    private let productImageView = UIImageView().then {
+        $0.layer.cornerRadius = 5
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.backgroundColor = .coolGray2
+    }
     
     private let productNameLabel = UILabel().then {
         $0.numberOfLines = 2
@@ -166,7 +172,8 @@ final class HomeWishListCell: UICollectionViewCell {
     public func setUI(with item: HomeWishListItem) {
         
         if let productImage = item.image {
-            productImageView.image = UIImage(named: productImage)
+            let imageURL = URL(string: productImage)
+            productImageView.kf.setImage(with: imageURL)
         }
         
         if let productName = item.name {
