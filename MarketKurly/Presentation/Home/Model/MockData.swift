@@ -53,4 +53,12 @@ struct MockData {
         HomeRankingListItem(id: 3, name: "[바른식] 강릉식 짬뽕순두부 찌개", price: 7654, discount: 14, image: "img_home_card_large_jjampong"),
         HomeRankingListItem(id: 4, name: "[스윗밸런스] 오늘의 샐러드 10종", price: 4760, discount: 15, image: "img_home_card_large_salad")
     ])
+    
+    static let recommendListSection = HomeRecommendListSection(mainBottomData: [
+        HomeRecommendListItem(id: 0, name: "[이영애의 건강미식] 효소 30포 3종", price: 16900, discount: 80, image: "img_home_card_small_lee"),
+        HomeRecommendListItem(id: 1, name: "[가농바이오] 오메가 에그 무항생제 1+등급", price: 6800, discount: 22, image: "img_home_card_small_egg"),
+        HomeRecommendListItem(id: 2, name: "[동국제약] 굿잠 온찜질팩 5입", price: 7500, discount: 49, image: "img_home_card_small_dongkook"),
+        HomeRecommendListItem(id: 3, name: "태추 단감 1kg (특 4입)", price: 16900, discount: 5, image: "img_home_card_small_gam"),
+        HomeRecommendListItem(id: 4, name: "[성수동 분식] 콘치즈 김치볶음밥 (2개입)", price: 7420, discount: 25, image: "img_home_card_small_corn")
+    ])
 }

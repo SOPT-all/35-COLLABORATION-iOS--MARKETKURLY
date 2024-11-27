@@ -24,11 +24,11 @@ final class HomeViewController: UIViewController {
                     forCellWithReuseIdentifier: HomeCategoryCell.identifier)
         $0.register(HomeWishListCell.self,
                     forCellWithReuseIdentifier: HomeWishListCell.identifier)
-        $0.register(HomeMidBannerCell.self,
-                    forCellWithReuseIdentifier: HomeMidBannerCell.identifier)
         $0.register(HomeWishListHeaderView.self,
                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: HomeWishListHeaderView.identifier)
+        $0.register(HomeMidBannerCell.self,
+                    forCellWithReuseIdentifier: HomeMidBannerCell.identifier)
         $0.register(HomeRankingListCell.self,
                     forCellWithReuseIdentifier: HomeRankingListCell.identifier)
         $0.register(HomeRankingHeaderView.self,
@@ -37,6 +37,11 @@ final class HomeViewController: UIViewController {
         $0.register(HomeRankingFooterView.self,
                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                     withReuseIdentifier: HomeRankingFooterView.identifier)
+        $0.register(HomeRecommendListCell.self,
+                    forCellWithReuseIdentifier: HomeRecommendListCell.identifier)
+        $0.register(HomeRecommendListHeaderView.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: HomeRecommendListHeaderView.identifier)
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>!
@@ -100,8 +105,10 @@ final class HomeViewController: UIViewController {
     
     // 컬렉션 뷰 DataSource 세팅
     private func setupDataSource() {
+        // 셀 세팅
         dataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: contentsCollectionView) { collectionView, indexPath, item in
             switch HomeSection(rawValue: indexPath.section) {
+            // 메인 배너
             case .mainBanner:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: HomeMainBannerCell.identifier, for: indexPath
@@ -112,7 +119,7 @@ final class HomeViewController: UIViewController {
                     cell.setUI(with: bannerSection.mainBannerData ?? [])
                 }
                 return cell
-                
+            // 카테고리
             case .category:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: HomeCategoryCell.identifier, for: indexPath
@@ -123,7 +130,7 @@ final class HomeViewController: UIViewController {
                     cell.setUI(iconImage: categoryItem.imageUrl, title: categoryItem.title)
                 }
                 return cell
-                
+            // 위시 리스트
             case .wishList:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: HomeWishListCell.identifier, for: indexPath
@@ -134,7 +141,7 @@ final class HomeViewController: UIViewController {
                     cell.setUI(with: wishListItem)
                 }
                 return cell
-
+            // 중간 광고 배너
             case .midBanner:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: HomeMidBannerCell.identifier, for: indexPath
@@ -145,6 +152,7 @@ final class HomeViewController: UIViewController {
                     cell.setUI(with: midBannerItem)
                 }
                 return cell
+            // 랭킹 리스트
             case .rankingList:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: HomeRankingListCell.identifier, for: indexPath
@@ -155,23 +163,36 @@ final class HomeViewController: UIViewController {
                     cell.setUI(with: rankingListItem, cellIndex: indexPath.row + 1)
                 }
                 return cell
+            // 추천 리스트
+            case .recommendList:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HomeRecommendListCell.identifier, for: indexPath
+                ) as? HomeRecommendListCell else {
+                    return UICollectionViewCell()
+                }
+                if let recommendListItem = item as? HomeRecommendListItem {
+                    cell.setUI(with: recommendListItem)
+                }
+                return cell
             default:
                 return UICollectionViewCell()
             }
         }
 
+        
+        // 헤더, 푸터 세팅
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil}
             
             switch section {
             // 위시 리스트
             case .wishList:
+                // 헤더
                 let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
                     withReuseIdentifier: HomeWishListHeaderView.identifier,
                     for: indexPath
                 ) as? HomeWishListHeaderView
-                
                 return header
             // 랭킹 리스트
             case .rankingList:
@@ -195,6 +216,15 @@ final class HomeViewController: UIViewController {
                 default:
                     return nil
                 }
+            // 추천 리스트
+            case .recommendList:
+                // 헤더
+                let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: HomeRecommendListHeaderView.identifier,
+                    for: indexPath
+                ) as? HomeRecommendListHeaderView
+                return header
             default:
                 return nil
             }
@@ -206,8 +236,8 @@ final class HomeViewController: UIViewController {
     
     // 컬렉션 뷰 레이아웃 세팅
     private func createCompositionalLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
-            guard let section = HomeSection(rawValue: sectionIndex) else { return nil }
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
+            guard let self, let section = HomeSection(rawValue: sectionIndex) else { return nil }
             switch section {
             case .mainBanner:
                 return self.createMainBannerLayout()
@@ -219,6 +249,8 @@ final class HomeViewController: UIViewController {
                 return self.createMidBannerLayout()
             case .rankingList:
                 return self.createRankingSection()
+            case .recommendList:
+                return self.createRecommendListLayout()
             }
         }
         
@@ -350,7 +382,34 @@ final class HomeViewController: UIViewController {
     }
 
     
+    // 추천 리스트 레이아웃 세팅
+    private func createRecommendListLayout() -> NSCollectionLayoutSection {
+        // 아이템 크기: 145x330
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(145), heightDimension: .absolute(330))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(145), heightDimension: .absolute(330))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous // 가로 스크롤
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 30, trailing: 16)
+        section.interGroupSpacing = 7
+
+        // 헤더 추가
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(103))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+
+        return section
+    }
     
+    
+    // Snapshot 적용
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
 
@@ -380,6 +439,11 @@ final class HomeViewController: UIViewController {
         if let rankingListData = MockData.rankingListSection.mainMiddleData {
             snapshot.appendSections([.rankingList])
             snapshot.appendItems(rankingListData, toSection: .rankingList)
+        }
+        
+        if let rankingListData = MockData.recommendListSection.mainBottomData {
+            snapshot.appendSections([.recommendList])
+            snapshot.appendItems(rankingListData, toSection: .recommendList)
         }
 
         dataSource.apply(snapshot, animatingDifferences: false)
