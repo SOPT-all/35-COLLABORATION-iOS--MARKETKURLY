@@ -58,7 +58,7 @@ class GoodsInfo: UIView {
         
         mainStackView.snp.makeConstraints {
             $0.top.equalTo(goodsInfoLabel.snp.bottom).offset(15)
-            $0.bottom.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-100)
             $0.width.equalToSuperview()
         }
     }
