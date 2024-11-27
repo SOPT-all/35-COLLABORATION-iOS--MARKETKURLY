@@ -25,7 +25,7 @@ struct Goods {
 }
 
 extension Goods {
-    static let Data: [Goods] = [
+    static let infoMockData: [Goods] = [
         Goods(
             goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
             goodsName: "[제철] 청송 사과 1.5kg (4~6입)",
