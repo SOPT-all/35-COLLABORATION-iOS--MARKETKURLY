@@ -6,12 +6,15 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class DetailViewController: UIViewController {
     
     private var isMembersSectionVisible = false
+    
     private let sellerInfo = SellerInfo()
+    private let relatedGoods = RelatedGoods()
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -225,7 +228,7 @@ class DetailViewController: UIViewController {
         view.addSubviews(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton, sellerInfo)
+        contentView.addSubviews(goodsImageView, deliveryLabel, goodsNameLabel, shareButton, originLabel, costPriceLabel, infoButton, discountRateLabel, discountPriceLabel, membersButton, membersRateLabel, membersPriceLabel, joinMembersButton, sellerInfo, relatedGoods)
         
         
         contentView.addSubviews(tempImageView, wishButton, purchaseButton)
@@ -325,11 +328,15 @@ class DetailViewController: UIViewController {
                 $0.top.equalTo(membersButton.snp.bottom).offset(10)
             }
             $0.leading.trailing.equalToSuperview()
-            //            $0.bottom.equalTo(contentView)
+        }
+        
+        relatedGoods.snp.makeConstraints{
+            $0.top.equalTo(sellerInfo.snp.bottom).offset(7)
+            $0.leading.trailing.equalToSuperview()
         }
         
         tempImageView.snp.makeConstraints {
-            $0.top.equalTo(sellerInfo.snp.bottom).offset(7)
+            $0.top.equalTo(relatedGoods.snp.bottom).offset(7)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview()
             $0.height.equalTo(491)
@@ -385,7 +392,6 @@ class DetailViewController: UIViewController {
                 $0.top.equalTo(self.membersButton.snp.bottom).offset(10)
             }
             $0.leading.trailing.equalToSuperview()
-            //            $0.bottom.equalTo(self.contentView)
         }
         
         self.view.layoutIfNeeded()
