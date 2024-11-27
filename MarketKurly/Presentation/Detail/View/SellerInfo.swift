@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class SellerInfo: UIView {
     
     private let deliveryTitleLabel: UILabel = {
@@ -73,7 +75,7 @@ class SellerInfo: UIView {
         stackView.spacing = 10
         stackView.alignment = .leading
         
-        stackView.layer.borderColor = UIColor.black.cgColor
+        stackView.layer.borderColor = UIColor.gray2.cgColor
         stackView.layer.borderWidth = 1.0
         return stackView
     }()
@@ -81,12 +83,17 @@ class SellerInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setStyle()
         setUI()
         setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setStyle(){
+        self.backgroundColor = .white
     }
     
     private func setUI() {
