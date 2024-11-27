@@ -40,7 +40,7 @@ class SegmentedPageViewController: UIViewController {
     }
     
     private func setStyle() {
-        self.view.backgroundColor = .gray2
+        self.view.backgroundColor = .white
     }
     
     private func setUI() {
