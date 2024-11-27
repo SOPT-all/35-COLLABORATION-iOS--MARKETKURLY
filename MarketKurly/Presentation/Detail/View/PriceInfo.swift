@@ -277,7 +277,8 @@ class PriceInfo: UIView {
             return "\(price)원"
         }
         
-        if let goodsName = goods.goodsName as String?,
+        if let deliveryType = goods.deliveryType as String?,
+           let goodsName = goods.goodsName as String?,
            let origin = goods.origin as String?,
            let costPrice = goods.costPrice as Int?,
            let discountRate = goods.discountRate as Int?,
@@ -285,6 +286,7 @@ class PriceInfo: UIView {
            let membersRate = goods.membersRate as Int?,
            let membersPrice = goods.membersPrice as Int? {
             
+            deliveryTypeLabel.text = deliveryType
             goodsNameLabel.text = goodsName
             originLabel.text = "원산지: \(origin)"
             
