@@ -21,12 +21,16 @@ public enum MarketKurlyFont {
     case bodyBold16
     case bodyMedium16
     case bodySemiBold14
+    case bodyExtraBold14
+    case bodyMedium14
+    case bodyRegular14
     
     // MARK: - Caption
     case captionSemiBold12
     case captionMedium12
     case captionRegular12
     case captionBold10
+    case captionMedium10
     case captionBold7
 }
 
@@ -76,6 +80,18 @@ extension MarketKurlyFont {
             return UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)!
                 .withLineHeight(18)
                 .withLetterSpacing(2)
+        case .bodyExtraBold14:
+            return UIFont(name: "AppleSDGothicNeo-ExtraBold", size: 14)!
+                .withLineHeight(18)
+                .withLetterSpacing(2)
+        case .bodyMedium14:
+            return UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!
+                .withLineHeight(18)
+                .withLetterSpacing(-2)
+        case .bodyRegular14:
+            return UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!
+                .withLineHeight(18)
+                .withLetterSpacing(-2)
             
         // MARK: - Caption
         case .captionSemiBold12:
@@ -92,6 +108,10 @@ extension MarketKurlyFont {
                 .withLetterSpacing(2)
         case .captionBold10:
             return UIFont(name: "AppleSDGothicNeo-Bold", size: 10)!
+                .withLineHeight(14)
+                .withLetterSpacing(-1)
+        case .captionMedium10:
+            return UIFont(name: "AppleSDGothicNeo-Medium", size: 10)!
                 .withLineHeight(14)
                 .withLetterSpacing(-1)
         case .captionBold7:
