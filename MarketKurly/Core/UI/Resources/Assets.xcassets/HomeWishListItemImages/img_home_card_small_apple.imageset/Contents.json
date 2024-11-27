@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "img_home_card_small_apple.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
