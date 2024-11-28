@@ -284,7 +284,7 @@ class PriceInfo: UIView {
         let membersRate = data.membersDiscount
         let membersPrice = data.membersDiscountedPrice
         
-        goodsImageView.kf.setImage(with: URL(string: data.image))
+        goodsImageView.kf.setImage(with: URL(string: image))
         
         deliveryTypeLabel.text = deliveryType
         goodsNameLabel.text = goodsName

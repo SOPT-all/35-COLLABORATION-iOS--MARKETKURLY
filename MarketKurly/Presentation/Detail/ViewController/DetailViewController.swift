@@ -86,7 +86,7 @@ class DetailViewController: UIViewController {
     }
     
     private func fetchDetailData() {
-        let productId = 6
+        let productId = 12
         
         DetailApi.shared.getDetailData(productId: productId) { result in
             switch result {

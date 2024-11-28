@@ -32,6 +32,7 @@ struct Goods {
 }
 
 extension Goods {
+    // UI를 위한 임시 데이터
     static let infoMockData: [Goods] = [
         Goods(
             goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
@@ -50,27 +51,28 @@ extension Goods {
         )
     ]
     
+    // 다른 고객들이 함께 본 상품
     static let relatedMockData: [Goods] = [
         Goods(
-            goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
+            goodsImage: UIImage(named: "related1")!,
             goodsName: "[KF365] 유명산지 고당도사과 1.5k...",
             discountRate: 16,
             discountPrice: 19900
         ),
         Goods(
-            goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
+            goodsImage: UIImage(named: "related2")!,
             goodsName: "감홍 사과 1.3kg (4~6입)",
             discountRate: 13,
             discountPrice: 19900
         ),
         Goods(
-            goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
+            goodsImage: UIImage(named: "related3")!,
             goodsName: "고랭지 햇사과 1.3kg (4~6입)",
             discountRate: 26,
             discountPrice: 13900
         ),
         Goods(
-            goodsImage: UIImage(systemName: "applelogo")!.withTintColor(.red, renderingMode: .alwaysOriginal),
+            goodsImage: UIImage(named: "related4")!,
             goodsName: "세척사과 1.4kg (7입)",
             discountRate: 25,
             discountPrice: 14900
