@@ -11,8 +11,6 @@ import SnapKit
 import Then
 
 class RelatedGoodsCell: UITableViewCell {
-    static let identifier: String = "RelatedGoodsCell"
-    
     private let goodsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
