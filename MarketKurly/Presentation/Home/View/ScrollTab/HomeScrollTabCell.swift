@@ -10,8 +10,6 @@ import SnapKit
 
 final class HomeScrollTabCell: UICollectionViewCell {
     
-    static let identifier = "HomeScrollTabCell"
-    
     private let titleLabel = UILabel()
     
     
