@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class DetailViewController: UIViewController, PriceInfoDelegate {
+class DetailViewController: UIViewController {
     
     private let priceInfo = PriceInfo()
     private let sellerInfo = SellerInfo()
@@ -73,12 +73,16 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setDelegate()
         setStyle()
         setUI()
         setLayout()
         
-        priceInfo.delegate = self
         wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
+    }
+    
+    private func setDelegate() {
+        priceInfo.delegate = self
     }
     
     private func setStyle() {
@@ -166,6 +170,9 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
             }
         }
     }
+}
+
+extension DetailViewController: PriceInfoDelegate {
     
     func didTapMembersButton(isMembersSectionVisible: Bool) {
         sellerInfo.snp.removeConstraints()
