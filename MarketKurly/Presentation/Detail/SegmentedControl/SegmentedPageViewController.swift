@@ -14,6 +14,9 @@ class SegmentedPageViewController: UIViewController {
     private lazy var segmentController: UISegmentedControl = {
         let segment = UnderlineSegmentedControl(items: ["상품설명", "상세정보", "후기", "문의"])
         segment.selectedSegmentIndex = 0
+        segment.addTarget(self,
+                          action: #selector(segmentChanged(_:)),
+                          for: .valueChanged)
         return segment
     }()
     
@@ -24,11 +27,12 @@ class SegmentedPageViewController: UIViewController {
         return vc
     }()
     
-    private lazy var viewControllers: [UIViewController] = {
-        let detailVC = DetailViewController()
-        
-        return [detailVC]
-    }()
+    private lazy var viewControllers: [UIViewController] = [
+        DetailViewController(),
+        createViewController(text: "상세정보"),
+        ReviewViewController(),
+        createViewController(text: "문의")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,7 @@ class SegmentedPageViewController: UIViewController {
         setUI()
         setStyle()
         setLayout()
-        setupPageViewController()
+        setupInitialViewController()
     }
     
     private func setStyle() {
@@ -62,18 +66,12 @@ class SegmentedPageViewController: UIViewController {
         }
     }
     
-    private func setupPageViewController() {
+    private func setupInitialViewController() {
         if let firstVC = viewControllers.first {
             pageViewController.setViewControllers([firstVC],
                                                   direction: .forward,
                                                   animated: true)
         }
-    }
-    
-    private func setupSegmentControl() {
-        segmentController.addTarget(self,
-                                    action: #selector(segmentChanged(_:)),
-                                    for: .valueChanged)
     }
     
     @objc private func segmentChanged(_ sender: UISegmentedControl) {
@@ -83,6 +81,21 @@ class SegmentedPageViewController: UIViewController {
         pageViewController.setViewControllers([viewControllers[index]],
                                               direction: direction,
                                               animated: true)
+    }
+    
+    
+    // MARK: 임시 뷰 컨트롤러
+    private func createViewController(text: String) -> UIViewController {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .gray3
+        
+        let label = UILabel()
+        label.text = text
+        label.textAlignment = .center
+        label.frame = vc.view.bounds
+        vc.view.addSubview(label)
+        
+        return vc
     }
 }
 
