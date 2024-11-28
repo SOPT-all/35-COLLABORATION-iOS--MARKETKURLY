@@ -19,6 +19,38 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
+    private var snackBar: UIButton  = {
+        let button = UIButton()
+        button.backgroundColor = .gray7
+        button.layer.cornerRadius = 4
+        button.isHidden = true
+        
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = "찜한 상품에 추가되었습니다."
+        descriptionLabel.textColor = .kurlyWhite
+        descriptionLabel.font = MarketKurlyFont.captionMedium12.font
+        
+        let goToWishListLabel = UILabel()
+        goToWishListLabel.text = "찜한 상품으로 가기"
+        goToWishListLabel.textColor = .primary300
+        goToWishListLabel.font = MarketKurlyFont.captionMedium12.font
+        
+        let stackView = UIStackView(arrangedSubviews: [descriptionLabel, goToWishListLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 61
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        
+        button.addSubview(stackView)
+        
+        stackView.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        return button
+    }()
+    
     private let wishButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "icn_save_default"), for: .normal)
@@ -46,6 +78,7 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
         setLayout()
         
         priceInfo.delegate = self
+        wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
     }
     
     private func setStyle() {
@@ -55,10 +88,8 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
     private func setUI() {
         view.addSubviews(scrollView)
         scrollView.addSubview(contentView)
-        
         contentView.addSubviews(priceInfo, sellerInfo, relatedGoods, goodsInfo)
-        
-        contentView.addSubviews(wishButton, purchaseButton)
+        contentView.addSubviews(snackBar, wishButton, purchaseButton)
     }
     
     private func setLayout() {
@@ -97,6 +128,14 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
             $0.bottom.equalTo(contentView)
         }
         
+        snackBar.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(wishButton.snp.top).offset(-17)
+            $0.width.equalTo(329)
+            $0.height.equalTo(42)
+            
+        }
+        
         wishButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(11)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
@@ -110,6 +149,21 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
             $0.width.equalTo(294)
             $0.height.equalTo(49)
+        }
+    }
+    
+    @objc private func didTapWishButton() {
+        wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
+        
+        snackBar.isHidden = false
+        snackBar.alpha = 1.0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.snackBar.alpha = 0.0
+            }) { _ in
+                self.snackBar.isHidden = true
+            }
         }
     }
     
