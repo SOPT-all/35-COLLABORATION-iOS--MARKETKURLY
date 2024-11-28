@@ -11,6 +11,8 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
+    private var isWished = false
+    
     private let priceInfo = PriceInfo()
     private let sellerInfo = SellerInfo()
     private let relatedGoods = RelatedGoods()
@@ -157,17 +159,22 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func didTapWishButton() {
-        wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
+        isWished.toggle()
         
-        snackBar.isHidden = false
-        snackBar.alpha = 1.0
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.snackBar.alpha = 0.0
-            }) { _ in
-                self.snackBar.isHidden = true
+        if isWished {
+            wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
+            snackBar.isHidden = false
+            snackBar.alpha = 1.0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.snackBar.alpha = 0.0
+                }) { _ in
+                    self.snackBar.isHidden = true
+                }
             }
+        } else {
+            wishButton.setImage(UIImage(named: "icn_save_default"), for: .normal)
         }
     }
 }
