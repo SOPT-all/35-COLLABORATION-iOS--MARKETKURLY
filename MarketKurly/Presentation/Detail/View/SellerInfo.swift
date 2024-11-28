@@ -16,7 +16,7 @@ class SellerInfo: UIView {
     private let deliveryTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "배송"
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyRegular14 확인 필요
+        label.font = MarketKurlyFont.bodyRegular14.font
         label.textColor = .gray6
         return label
     }()
@@ -30,7 +30,7 @@ class SellerInfo: UIView {
     private let sellerTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "판매자"
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyRegular14 확인 필요
+        label.font = MarketKurlyFont.bodyRegular14.font
         label.textColor = .gray6
         return label
     }()
@@ -38,7 +38,7 @@ class SellerInfo: UIView {
     private let sellerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "컬리"
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyMedium14 확인 필요
+        label.font = MarketKurlyFont.bodyMedium14.font
         label.textColor = .gray7
         return label
     }()
@@ -85,7 +85,7 @@ class SellerInfo: UIView {
     }
     
     private func setStyle(){
-        self.backgroundColor = .white
+        self.backgroundColor = .kurlyWhite
     }
     
     private func setUI() {
@@ -126,23 +126,23 @@ class SellerInfo: UIView {
             let fullText = "\(deliveryType)\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 2
-
+            
             let attributedText = NSMutableAttributedString(
                 string: fullText,
                 attributes: [
                     .font: MarketKurlyFont.captionRegular12.font,
-                    .foregroundColor: UIColor.gray7,
+                    .foregroundColor: UIColor.gray6,
                     .paragraphStyle: paragraphStyle
                 ]
             )
             
             attributedText.addAttributes([
-                .font: MarketKurlyFont.bodySemiBold14.font,
-                .foregroundColor: UIColor.black
+                .font: MarketKurlyFont.bodyMedium14.font,
+                .foregroundColor: UIColor.gray7
             ], range: NSRange(location: 0, length: deliveryType.count))
             
             deliveryTypeLabel.attributedText = attributedText
-    
+            
         }
     }
 }

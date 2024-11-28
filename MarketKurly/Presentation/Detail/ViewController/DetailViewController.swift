@@ -23,7 +23,7 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
         let button = UIButton()
         button.setImage(UIImage(named: "icn_save_default"), for: .normal)
         button.layer.borderColor = UIColor.gray3.cgColor
-        button.backgroundColor = .white
+        button.backgroundColor = .kurlyWhite
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         return button
@@ -32,7 +32,7 @@ class DetailViewController: UIViewController, PriceInfoDelegate {
     private let purchaseButton: UIButton = {
         let button = UIButton()
         button.setTitle("구매하기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.kurlyWhite, for: .normal)
         button.backgroundColor = .primary600
         button.layer.cornerRadius = 8
         return button

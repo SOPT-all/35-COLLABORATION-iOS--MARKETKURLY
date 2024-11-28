@@ -21,21 +21,21 @@ class RelatedGoodsCell: UITableViewCell {
     
     private let goodsNameLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyMedium14 확인 필요
+        label.font = MarketKurlyFont.bodyMedium14.font
         label.textColor = .gray7
         return label
     }()
     
     private let discountRateLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyExtraBold14 확인 필요
-        label.textColor = .red
+        label.font = MarketKurlyFont.bodyBold14.font
+        label.textColor = .kurlyRed
         return label
     }()
     
     private let discountPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodySemiBold14.font // bodyExtraBold14 확인 필요
+        label.font = MarketKurlyFont.bodyBold14.font
         label.textColor = .gray7
         return label
     }()
@@ -49,7 +49,7 @@ class RelatedGoodsCell: UITableViewCell {
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.coolGray2.cgColor
-        button.backgroundColor = .white
+        button.backgroundColor = .kurlyWhite
         button.semanticContentAttribute = .forceLeftToRight
         button.titleLabel?.font = MarketKurlyFont.captionMedium12.font
         

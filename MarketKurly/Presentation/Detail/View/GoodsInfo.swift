@@ -43,7 +43,7 @@ class GoodsInfo: UIView {
     }
     
     private func setStyle(){
-        self.backgroundColor = .white
+        self.backgroundColor = .kurlyWhite
     }
     
     private func setUI() {
@@ -66,9 +66,8 @@ class GoodsInfo: UIView {
     private func addItemToStackView(title: String, value: String?) {
         guard let value = value else { return }
         
-        // bodyRegular14, bodyMedium14 확인 필요
-        let titleLabel = createLabel(text: title, font: MarketKurlyFont.bodySemiBold14.font, textColor: .gray6)
-        let valueLabel = createLabel(text: value, font: MarketKurlyFont.bodySemiBold14.font, textColor: .gray7)
+        let titleLabel = createLabel(text: title, font: MarketKurlyFont.bodyRegular14.font, textColor: .gray6)
+        let valueLabel = createLabel(text: value, font: MarketKurlyFont.bodyMedium14.font, textColor: .gray7)
         
         let horizontalStackView = UIStackView()
         horizontalStackView.axis = .horizontal
