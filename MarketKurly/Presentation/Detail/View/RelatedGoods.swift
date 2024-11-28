@@ -30,8 +30,7 @@ class RelatedGoods: UIView {
         button.setTitle("다음상품 ", for: .normal)
         button.setTitleColor(.primary400, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
-        button.titleLabel?.font = MarketKurlyFont.bodySemiBold14.font // bodyMedium14 확인 필요
-        
+        button.titleLabel?.font = MarketKurlyFont.bodyMedium14.font
         return button
     }()
     
@@ -48,7 +47,7 @@ class RelatedGoods: UIView {
     }
     
     private func setStyle() {
-        self.backgroundColor = .white
+        self.backgroundColor = .kurlyWhite
         
         tableView.do{
             $0.register(RelatedGoodsCell.self,

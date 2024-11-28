@@ -14,11 +14,11 @@ class TempViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .kurlyWhite
         
         let button = UIButton(type: .system)
         button.setTitle("Go to Detail", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.kurlyWhite, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)

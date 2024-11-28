@@ -21,14 +21,7 @@
 		8BC226782CEDEB6B00FD38B7 /* Exceptions for "MarketKurly" folder in "MarketKurly" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Data/API/.gitkeep,
-				Data/Models/Request/.gitkeep,
-				Data/Models/Response/.gitkeep,
 				Info.plist,
-				Presentation/Detail/.gitkeep,
-				Presentation/Home/.gitkeep,
-				Presentation/Review/.gitkeep,
-				Presentation/Wish/.gitkeep,
 			);
 			target = 8BDE91B22CE9FE840093C44C /* MarketKurly */;
 		};

@@ -34,7 +34,7 @@ class PriceInfo: UIView {
     
     private let goodsNameLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyRegular18.font
+        label.font = MarketKurlyFont.bodySemiBold18.font
         label.textColor = .gray7
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -71,14 +71,14 @@ class PriceInfo: UIView {
     
     private let discountRateLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font
-        label.textColor = .red
+        label.font = MarketKurlyFont.titleBold24.font
+        label.textColor = .kurlyRed
         return label
     }()
     
     private let discountPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font
+        label.font = MarketKurlyFont.titleBold24.font
         label.textColor = .gray8
         return label
     }()
@@ -96,7 +96,7 @@ class PriceInfo: UIView {
     
     private let membersRateLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font
+        label.font = MarketKurlyFont.titleBold24.font
         label.textColor = .mint3
         label.isHidden = true
         return label
@@ -104,7 +104,7 @@ class PriceInfo: UIView {
     
     private let membersPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = MarketKurlyFont.bodyBold24.font
+        label.font = MarketKurlyFont.titleBold24.font
         label.textColor = .mint3
         label.isHidden = true
         return label
@@ -158,7 +158,7 @@ class PriceInfo: UIView {
     }
     
     private func setStyle(){
-        self.backgroundColor = .white
+        self.backgroundColor = .kurlyWhite
     }
     
     private func setUI() {
@@ -240,12 +240,13 @@ class PriceInfo: UIView {
     }
     
     func updateJoinMembersButtonText() {
-        if let fullText = membersPriceLabel.text {
-            let buttonText = "멤버스 가입하고 \(fullText) 에 구매하기"
+        if let membersPrice = membersPriceLabel.text {
+            let buttonTitle = "멤버스 가입하고 \(membersPrice) 에 구매하기"
             
-            let attributedString = NSMutableAttributedString(string: buttonText)
-            if let range = buttonText.range(of: fullText) {
-                attributedString.addAttribute(.foregroundColor, value: UIColor.mint3, range: NSRange(range, in: buttonText))
+            let attributedString = NSMutableAttributedString(string: buttonTitle)
+            if let range = buttonTitle.range(of: membersPrice) {
+                attributedString.addAttribute(.foregroundColor, value: UIColor.mint3, range: NSRange(range, in: buttonTitle))
+                attributedString.addAttribute(.font, value: MarketKurlyFont.bodyBold14.font, range: NSRange(range, in: buttonTitle))
             }
             
             joinMembersButton.setAttributedTitle(attributedString, for: .normal)
@@ -277,6 +278,14 @@ class PriceInfo: UIView {
             return "\(price)원"
         }
         
+        func applyFont(to priceText: String, font: UIFont) -> NSAttributedString {
+            let attributedText = NSMutableAttributedString(string: priceText)
+            if let range = priceText.range(of: "원") {
+                attributedText.addAttribute(.font, value: font, range: NSRange(range, in: priceText))
+            }
+            return attributedText
+        }
+        
         if let deliveryType = goods.deliveryType as String?,
            let goodsName = goods.goodsName as String?,
            let origin = goods.origin as String?,
@@ -296,9 +305,10 @@ class PriceInfo: UIView {
             ])
             
             discountRateLabel.text = "\(discountRate)%"
-            discountPriceLabel.text = formattedPrice(discountPrice)
+            discountPriceLabel.attributedText = applyFont(to: formattedPrice(discountPrice), font: MarketKurlyFont.bodyBold16.font)
             membersRateLabel.text = "\(membersRate)%"
-            membersPriceLabel.text = formattedPrice(membersPrice)
+            membersPriceLabel.attributedText = applyFont(to: formattedPrice(membersPrice), font: MarketKurlyFont.bodyBold14.font)
+            
             
         } else {
             goodsNameLabel.text = "정보 없음"
@@ -310,4 +320,3 @@ class PriceInfo: UIView {
         }
     }
 }
-

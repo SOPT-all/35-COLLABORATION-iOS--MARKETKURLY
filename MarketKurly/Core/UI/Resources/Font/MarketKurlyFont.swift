@@ -10,18 +10,18 @@ import UIKit
 public enum MarketKurlyFont {
     // MARK: - Title
     case titleBold32
+    case titleBold24
     case titleEmoji22
-    case titleSemiBold18
     case titleBody18
     case titleCaption14
     
     // MARK: - Body
-    case bodyBold24
+    case bodySemiBold18
     case bodyRegular18
     case bodyBold16
     case bodyMedium16
     case bodySemiBold14
-    case bodyExtraBold14
+    case bodyBold14
     case bodyMedium14
     case bodyRegular14
     
@@ -37,19 +37,19 @@ public enum MarketKurlyFont {
 extension MarketKurlyFont {
     public var font: UIFont {
         switch self {
-        // MARK: - Title
+            // MARK: - Title
         case .titleBold32:
             return UIFont(name: "AppleSDGothicNeo-Bold", size: 32)!
                 .withLineHeight(34)
                 .withLetterSpacing(0)
+        case .titleBold24:
+            return UIFont(name: "AppleSDGothicNeo-Bold", size: 24)!
+                .withLineHeight(28)
+                .withLetterSpacing(2)
         case .titleEmoji22:
             return UIFont(name: "AppleSDGothicNeo-Bold", size: 22)!
                 .withLineHeight(20)
                 .withLetterSpacing(0)
-        case .titleSemiBold18:
-            return UIFont(name: "AppleSDGothicNeo-SemiBold", size: 18)!
-                .withLineHeight(22)
-                .withLetterSpacing(-2)
         case .titleBody18:
             return UIFont(name: "AppleSDGothicNeo-Regular", size: 18)!
                 .withLineHeight(20)
@@ -59,11 +59,11 @@ extension MarketKurlyFont {
                 .withLineHeight(18)
                 .withLetterSpacing(2)
             
-        // MARK: - Body
-        case .bodyBold24:
-            return UIFont(name: "AppleSDGothicNeo-Bold", size: 24)!
-                .withLineHeight(28)
-                .withLetterSpacing(2)
+            // MARK: - Body
+        case .bodySemiBold18:
+            return UIFont(name: "AppleSDGothicNeo-SemiBold", size: 18)!
+                .withLineHeight(22)
+                .withLetterSpacing(-2)
         case .bodyRegular18:
             return UIFont(name: "AppleSDGothicNeo-Regular", size: 18)!
                 .withLineHeight(20)
@@ -80,8 +80,8 @@ extension MarketKurlyFont {
             return UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)!
                 .withLineHeight(18)
                 .withLetterSpacing(2)
-        case .bodyExtraBold14:
-            return UIFont(name: "AppleSDGothicNeo-ExtraBold", size: 14)!
+        case .bodyBold14:
+            return UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!
                 .withLineHeight(18)
                 .withLetterSpacing(2)
         case .bodyMedium14:
@@ -93,7 +93,7 @@ extension MarketKurlyFont {
                 .withLineHeight(18)
                 .withLetterSpacing(-2)
             
-        // MARK: - Caption
+            // MARK: - Caption
         case .captionSemiBold12:
             return UIFont(name: "AppleSDGothicNeo-SemiBold", size: 12)!
                 .withLineHeight(16)
