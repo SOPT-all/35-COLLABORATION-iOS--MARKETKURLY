@@ -32,7 +32,6 @@ class GoodsInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure(with: Goods.infoMockData[0])
         setStyle()
         setUI()
         setLayout()
@@ -97,14 +96,23 @@ class GoodsInfo: UIView {
         return label
     }
     
-    func configure(with goods: Goods) {
-        addItemToStackView(title: "포장타입", value: goods.packagingType)
-        addItemToStackView(title: "판매단위", value: goods.salesUnit)
-        addItemToStackView(title: "중량/용량", value: goods.weight)
-        addItemToStackView(title: "알레르기정보", value: goods.allergy)
-        addItemToStackView(title: "소비기한(또는 유통기한)정보", value: goods.expirationDate)
-        addItemToStackView(title: "원산지", value: goods.origin)
-        addItemToStackView(title: "당도", value: goods.brix.map { "\($0) Brix 이상" })
-        addItemToStackView(title: "안내사항", value: goods.notice)
+    // 데이터 연동
+    func configure(with data: DetailDataDto) {
+        let items: [(title: String, value: String?)] = [
+            ("포장타입", data.packagingType),
+            ("판매단위", data.sellingUnit),
+            ("중량/용량", data.weight),
+            ("알레르기정보", data.allergy),
+            ("소비기한(또는 유통기한)정보", data.expiration),
+            ("원산지", data.origin),
+            ("당도", data.brix.map { "\($0) Brix 이상" }),
+            ("안내사항", data.notification)
+        ]
+        
+        for item in items {
+            if let value = item.value, !value.isEmpty {
+                addItemToStackView(title: item.title, value: value)
+            }
+        }
     }
 }

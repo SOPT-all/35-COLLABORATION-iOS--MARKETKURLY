@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import SnapKit
+import Kingfisher
 
 protocol PriceInfoDelegate: AnyObject {
     func didTapMembersButton(isMembersSectionVisible: Bool)
@@ -15,12 +17,14 @@ protocol PriceInfoDelegate: AnyObject {
 class PriceInfo: UIView {
     
     weak var delegate: PriceInfoDelegate?
+    
     private var goods: Goods?
     var isMembersSectionVisible = false
     
     private let goodsImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.backgroundColor = .gray
         return imageView
     }()
@@ -91,6 +95,7 @@ class PriceInfo: UIView {
         button.setTitleColor(.mint3, for: .normal)
         button.semanticContentAttribute = .forceRightToLeft
         button.titleLabel?.font = MarketKurlyFont.bodyBold16.font
+        button.addTarget(self, action: #selector(membersButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -143,14 +148,9 @@ class PriceInfo: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure(with: Goods.infoMockData[0])
-        
         setStyle()
         setUI()
         setLayout()
-        
-        updateJoinMembersButtonText()
-        membersButton.addTarget(self, action: #selector(membersButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -239,20 +239,7 @@ class PriceInfo: UIView {
         }
     }
     
-    func updateJoinMembersButtonText() {
-        if let membersPrice = membersPriceLabel.text {
-            let buttonTitle = "멤버스 가입하고 \(membersPrice) 에 구매하기"
-            
-            let attributedString = NSMutableAttributedString(string: buttonTitle)
-            if let range = buttonTitle.range(of: membersPrice) {
-                attributedString.addAttribute(.foregroundColor, value: UIColor.mint3, range: NSRange(range, in: buttonTitle))
-                attributedString.addAttribute(.font, value: MarketKurlyFont.bodyBold14.font, range: NSRange(range, in: buttonTitle))
-            }
-            
-            joinMembersButton.setAttributedTitle(attributedString, for: .normal)
-        }
-    }
-    
+    // 멤버스 최대혜택가 버튼 누르면 멤버스 관련 뷰 나타남
     @objc private func membersButtonTapped() {
         isMembersSectionVisible.toggle()
         
@@ -267,7 +254,8 @@ class PriceInfo: UIView {
         delegate?.didTapMembersButton(isMembersSectionVisible: isMembersSectionVisible)
     }
     
-    func configure(with goods: Goods) {
+    // 데이터 연동
+    func configure(with data: DetailDataDto) {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
@@ -286,37 +274,46 @@ class PriceInfo: UIView {
             return attributedText
         }
         
-        if let deliveryType = goods.deliveryType as String?,
-           let goodsName = goods.goodsName as String?,
-           let origin = goods.origin as String?,
-           let costPrice = goods.costPrice as Int?,
-           let discountRate = goods.discountRate as Int?,
-           let discountPrice = goods.discountPrice as Int?,
-           let membersRate = goods.membersRate as Int?,
-           let membersPrice = goods.membersPrice as Int? {
+        let image = data.image
+        let deliveryType = data.deliveryType
+        let goodsName = data.name
+        let origin = data.origin
+        let costPrice = data.price
+        let discountRate = data.discount
+        let discountPrice = data.discountedPrice
+        let membersRate = data.membersDiscount
+        let membersPrice = data.membersDiscountedPrice
+        
+        goodsImageView.kf.setImage(with: URL(string: data.image))
+        
+        deliveryTypeLabel.text = deliveryType
+        goodsNameLabel.text = goodsName
+        originLabel.text = "원산지: \(origin)"
+        
+        let costPriceText = formattedPrice(costPrice)
+        costPriceLabel.attributedText = NSAttributedString(string: costPriceText, attributes: [
+            .strikethroughStyle: NSUnderlineStyle.single.rawValue
+        ])
+        
+        discountRateLabel.text = "\(discountRate)%"
+        discountPriceLabel.attributedText = applyFont(to: formattedPrice(discountPrice), font: MarketKurlyFont.bodyBold16.font)
+        membersRateLabel.text = "\(membersRate)%"
+        membersPriceLabel.attributedText = applyFont(to: formattedPrice(membersPrice), font: MarketKurlyFont.bodyBold14.font)
+        updateJoinMembersButtonText()
+    }
+    
+    // 멤버스 할인가 텍스트 표시
+    func updateJoinMembersButtonText() {
+        if let membersPrice = membersPriceLabel.text {
+            let buttonTitle = "멤버스 가입하고 \(membersPrice) 에 구매하기"
             
-            deliveryTypeLabel.text = deliveryType
-            goodsNameLabel.text = goodsName
-            originLabel.text = "원산지: \(origin)"
+            let attributedString = NSMutableAttributedString(string: buttonTitle)
+            if let range = buttonTitle.range(of: membersPrice) {
+                attributedString.addAttribute(.foregroundColor, value: UIColor.mint3, range: NSRange(range, in: buttonTitle))
+                attributedString.addAttribute(.font, value: MarketKurlyFont.bodyBold14.font, range: NSRange(range, in: buttonTitle))
+            }
             
-            let costPriceText = formattedPrice(costPrice)
-            costPriceLabel.attributedText = NSAttributedString(string: costPriceText, attributes: [
-                .strikethroughStyle: NSUnderlineStyle.single.rawValue
-            ])
-            
-            discountRateLabel.text = "\(discountRate)%"
-            discountPriceLabel.attributedText = applyFont(to: formattedPrice(discountPrice), font: MarketKurlyFont.bodyBold16.font)
-            membersRateLabel.text = "\(membersRate)%"
-            membersPriceLabel.attributedText = applyFont(to: formattedPrice(membersPrice), font: MarketKurlyFont.bodyBold14.font)
-            
-            
-        } else {
-            goodsNameLabel.text = "정보 없음"
-            originLabel.text = "정보 없음"
-            discountRateLabel.text = "정보 없음"
-            discountPriceLabel.text = "정보 없음"
-            membersRateLabel.text = "정보 없음"
-            membersPriceLabel.text = "정보 없음"
+            joinMembersButton.setAttributedTitle(attributedString, for: .normal)
         }
     }
 }
