@@ -11,8 +11,6 @@ import Then
 
 final class HomeRecommendListCell: UICollectionViewCell {
     
-    static let identifier = "RecommendListCell"
-    
     private let containerView = UIView()
     
     private let productImageView = UIImageView().then {

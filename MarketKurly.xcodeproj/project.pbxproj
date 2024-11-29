@@ -160,6 +160,8 @@
 /* Begin XCBuildConfiguration section */
 		8BDE91C52CE9FE850093C44C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8BC226642CEDEB6B00FD38B7 /* MarketKurly */;
+			baseConfigurationReferenceRelativePath = ConfigFile/DEV.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -223,6 +225,8 @@
 		};
 		8BDE91C62CE9FE850093C44C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8BC226642CEDEB6B00FD38B7 /* MarketKurly */;
+			baseConfigurationReferenceRelativePath = ConfigFile/RELEASE.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

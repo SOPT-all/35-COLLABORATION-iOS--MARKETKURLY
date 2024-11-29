@@ -11,8 +11,6 @@ import SnapKit
 
 final class HomeCategoryCell: UICollectionViewCell {
     
-    static let identifier = "CategoryCell"
-    
     private let containerView = UIView()
     
     private let imageContainerView = UIView().then {

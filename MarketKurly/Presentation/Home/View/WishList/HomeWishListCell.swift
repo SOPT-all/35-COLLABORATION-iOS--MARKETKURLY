@@ -12,8 +12,6 @@ import Kingfisher
 
 final class HomeWishListCell: UICollectionViewCell {
     
-    static let identifier = "HomeWishListCell"
-    
     private let containerView = UIView()
     
     private let productImageView = UIImageView().then {

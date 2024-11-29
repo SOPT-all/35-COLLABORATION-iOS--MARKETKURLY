@@ -11,8 +11,6 @@ import SnapKit
 
 final class HomeMainBannerCell: UICollectionViewCell {
     
-    static let identifier = "HomeMainBannerCell"
-    
     private let bannerView = HomeMainBannerView().then {
         $0.autoScrollDuration = 4.0
         $0.isAutoScrollEnabled = true

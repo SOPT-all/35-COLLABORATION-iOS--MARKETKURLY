@@ -11,8 +11,6 @@ import Then
 
 final class HomeRankingListCell: UICollectionViewCell {
     
-    static let identifier = "HomeRankingListCell"
-    
     private let containerView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 10

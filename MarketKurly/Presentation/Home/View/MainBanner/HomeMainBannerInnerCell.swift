@@ -11,8 +11,6 @@ import SnapKit
 
 class HomeMainBannerInnerCell: UICollectionViewCell {
     
-    static let identifier = "HomeMainBannerInnerCell"
-    
     private let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true

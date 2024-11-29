@@ -10,8 +10,6 @@ import SnapKit
 import Then
 
 final class HomeMidBannerCell: UICollectionViewCell {
-    
-    static let identifier = "HomeMidBannerCell"
 
     private let bannerImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
