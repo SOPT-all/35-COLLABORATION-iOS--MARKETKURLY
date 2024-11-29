@@ -69,7 +69,7 @@ class WishListViewController: UIViewController {
         
         wishListTableView.do {
             $0.register(WishListTableViewCell.self, forCellReuseIdentifier: WishListTableViewCell.identifier)
-            $0.register(WishListCategoryCollectionView.self, forCellReuseIdentifier: WishListCategoryCollectionView.identifier)
+            $0.register(WishListCategoryTableViewCell.self, forCellReuseIdentifier: WishListCategoryTableViewCell.identifier)
             $0.delegate = self
             $0.dataSource = self
             $0.separatorStyle = .none
@@ -105,9 +105,9 @@ extension WishListViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0: guard let cell = wishListTableView.dequeueReusableCell(withIdentifier: WishListCategoryCollectionView.identifier, for: indexPath) as? WishListCategoryCollectionView else { return UITableViewCell() }
+        case 0: guard let cell = wishListTableView.dequeueReusableCell(withIdentifier: WishListCategoryTableViewCell.identifier, for: indexPath) as? WishListCategoryTableViewCell else { return UITableViewCell() }
             guard let count = wishListData?.products.count else { return UITableViewCell() }
-            cell.configure(data: ["전체 \(count)개", "유제품", "간편식.밀키트.샐러드", "과일.견과.쌀", "간식"], index: 0)
+            cell.configure(with: ["전체 \(count)개", "유제품", "간편식.밀키트.샐러드", "과일.견과.쌀", "간식"])
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
         default: guard let cell = wishListTableView.dequeueReusableCell(withIdentifier: WishListTableViewCell.identifier, for: indexPath) as? WishListTableViewCell else { return UITableViewCell() }
