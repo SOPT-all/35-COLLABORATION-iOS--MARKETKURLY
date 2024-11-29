@@ -11,6 +11,8 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
+    var productId: Int = 14
+    
     private var isWished = false
     
     private let priceInfo = PriceInfo()
@@ -83,21 +85,6 @@ class DetailViewController: UIViewController {
         wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
         
         fetchDetailData()
-    }
-    
-    private func fetchDetailData() {
-        let productId = 12
-        
-        DetailApi.shared.getDetailData(productId: productId) { result in
-            switch result {
-            case .success(let detailDto):
-                self.priceInfo.configure(with: detailDto.data)
-                self.sellerInfo.configure(with: detailDto.data)
-                self.goodsInfo.configure(with: detailDto.data)
-            case .failure(let error):
-                print("Error fetching detail data: \(error)")
-            }
-        }
     }
     
     private func setDelegate() {
@@ -175,13 +162,37 @@ class DetailViewController: UIViewController {
         }
     }
     
+    private func fetchDetailData() {
+        DetailApi.shared.getDetailData(productId: productId) { result in
+            switch result {
+            case .success(let detailDto):
+                self.priceInfo.configure(with: detailDto.data)
+                self.sellerInfo.configure(with: detailDto.data)
+                self.goodsInfo.configure(with: detailDto.data)
+            case .failure(let error):
+                print("Error fetching detail data: \(error)")
+            }
+        }
+    }
+    
     @objc private func didTapWishButton() {
-        isWished.toggle()
+        isWished.toggle() // 찜 상태를 토글
         
         if isWished {
             wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
             snackBar.isHidden = false
             snackBar.alpha = 1.0
+            
+            WishApi.shared.addWish(productId: productId) { result in
+                switch result {
+                case .success(let response):
+                    print("\(response.message)")
+                case .failure(let error):
+                    print("\(error)")
+                    self.isWished = false
+                    self.wishButton.setImage(UIImage(named: "icn_save_default"), for: .normal)
+                }
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 UIView.animate(withDuration: 0.3, animations: {
@@ -192,8 +203,20 @@ class DetailViewController: UIViewController {
             }
         } else {
             wishButton.setImage(UIImage(named: "icn_save_default"), for: .normal)
+            
+            WishApi.shared.removeWish(productId: productId) { result in
+                switch result {
+                case .success(let response):
+                    print("\(response.message)")
+                case .failure(let error):
+                    print("\(error)")
+                    self.isWished = true
+                    self.wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
+                }
+            }
         }
     }
+    
 }
 
 extension DetailViewController: PriceInfoDelegate {
