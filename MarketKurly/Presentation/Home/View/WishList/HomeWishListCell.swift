@@ -74,10 +74,15 @@ final class HomeWishListCell: UICollectionViewCell {
     
     private let reviewCountLabel = UILabel()
     
+    
+    public var onCellTap: (() -> ())?  // 셀 터치 핸들러
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         makeUI()
+        bindAction()
     }
     
     required init?(coder: NSCoder) {
@@ -207,6 +212,16 @@ final class HomeWishListCell: UICollectionViewCell {
         discountRateLabel.attributedText = nil
         salePriceLabel.attributedText = nil
         reviewCountLabel.attributedText = nil
+    }
+    
+    
+    private func bindAction() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cellDidTap)))
+    }
+    
+    
+    @objc private func cellDidTap() {
+        onCellTap?()
     }
 }
 

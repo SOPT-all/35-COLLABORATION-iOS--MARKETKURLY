@@ -18,7 +18,7 @@ final class KurlyClient: NetworkRequestable {
     func request<T: Decodable>(
         _ model: T.Type,
         target: any TargetType,
-        completion: @escaping (Result<T, NetworkError>) -> Void
+        completion: @escaping (Result<ResponseData<T>, NetworkError>) -> Void
     ) {
         NetworkManager
             .shared
@@ -36,7 +36,7 @@ final class KurlyClient: NetworkRequestable {
                 case .success:
                     do {
                         let decodedData = try JSONDecoder().decode(ResponseData<T>.self, from: data)
-                        completion(.success(decodedData.data))
+                        completion(.success(decodedData))
                     } catch {
                         completion(.failure(.parsingError))
                     }

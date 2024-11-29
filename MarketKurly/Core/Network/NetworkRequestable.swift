@@ -11,7 +11,7 @@ protocol NetworkRequestable {
     func request<T: Decodable>(
         _ model: T.Type,
         target: TargetType,
-        completion: @escaping (Result<T, NetworkError>) -> Void
+        completion: @escaping (Result<ResponseData<T>, NetworkError>) -> Void
     )
     
     func request(

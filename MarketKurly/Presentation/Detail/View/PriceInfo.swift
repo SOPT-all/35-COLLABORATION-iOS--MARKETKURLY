@@ -255,7 +255,7 @@ class PriceInfo: UIView {
     }
     
     // 데이터 연동
-    func configure(with data: DetailDataDto) {
+    func configure(with data: DetailDto) {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         

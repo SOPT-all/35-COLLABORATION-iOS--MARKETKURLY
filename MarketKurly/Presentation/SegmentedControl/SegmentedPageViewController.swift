@@ -11,6 +11,8 @@ import SnapKit
 
 class SegmentedPageViewController: UIViewController {
     
+    private let productId: Int
+    
     private lazy var segmentController: UISegmentedControl = {
         let segment = UnderlineSegmentedControl(items: ["상품설명", "상세정보", "후기", "문의"])
         segment.selectedSegmentIndex = 0
@@ -27,15 +29,27 @@ class SegmentedPageViewController: UIViewController {
         return vc
     }()
     
-    private lazy var viewControllers: [UIViewController] = [
-        DetailViewController(),
-        createViewController(text: "상세정보"),
-        ReviewViewController(),
-        createViewController(text: "문의")
-    ]
+    private var viewControllers: [UIViewController] = []
+    
+    public init(productId: Int) {
+        self.productId = productId
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // segment control 뷰 컨트롤러 세팅
+        self.viewControllers = [DetailViewController(productId: productId),
+                                createViewController(text: "상세정보"),
+                                ReviewViewController(),
+                                createViewController(text: "문의")]
         
         setUI()
         setStyle()

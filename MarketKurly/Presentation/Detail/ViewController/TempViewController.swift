@@ -34,7 +34,7 @@ class TempViewController: UIViewController {
     }
     
     @objc private func didTapButton() {
-        let segmentedPageVC = SegmentedPageViewController()
+        let segmentedPageVC = SegmentedPageViewController(productId: 14)
         self.navigationController?.pushViewController(segmentedPageVC, animated: true)
         self.navigationItem.backButtonTitle = ""
     }

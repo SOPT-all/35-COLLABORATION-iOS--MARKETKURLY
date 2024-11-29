@@ -12,11 +12,11 @@ struct DetailApi {
     
     private let client = KurlyClient.shared
     
-    func getDetailData(productId: Int, completion: @escaping (Result<DetailDto, NetworkError>) -> Void) {
+    func getDetailData(productId: Int, completion: @escaping (Result<DetailDto?, NetworkError>) -> Void) {
         client.request(DetailDto.self, target: DetailTarget.getDetailData(productId: productId)) { result in
             switch result {
-            case .success(let data):
-                completion(.success(data))
+            case .success(let response):
+                completion(.success(response.data))
             case .failure(let error):
                 completion(.failure(error))
             }
