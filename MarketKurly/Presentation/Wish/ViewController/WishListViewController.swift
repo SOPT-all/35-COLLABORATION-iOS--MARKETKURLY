@@ -10,6 +10,8 @@ import UIKit
 class WishListViewController: UIViewController {
     private let backButtonImageView = UIImageView(image: .icBackButton)
     
+    private var wishListData : ResponseWishListDTO?
+    
     private let titleLabel = UILabel().then {
         $0.text = "찜한 상품"
         $0.font = MarketKurlyFont.bodyBold16.font
@@ -28,6 +30,7 @@ class WishListViewController: UIViewController {
         addSubviews()
         setLayout()
         setStyle()
+        fetchWishList(memberId: 6)
     }
     
     private func addSubviews() {
@@ -77,6 +80,7 @@ class WishListViewController: UIViewController {
         wishListTableView.sectionHeaderHeight = 0
         wishListTableView.estimatedRowHeight = 100
         wishListTableView.sectionFooterHeight = 0
+        wishListTableView.backgroundColor = .clear
         
         if #available(iOS 15.0, *) {
             wishListTableView.sectionHeaderTopPadding = 0
@@ -95,18 +99,20 @@ extension WishListViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        default: return 10
+        default: return wishListData?.products.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0: guard let cell = wishListTableView.dequeueReusableCell(withIdentifier: WishListCategoryCollectionView.identifier, for: indexPath) as? WishListCategoryCollectionView else { return UITableViewCell() }
-            cell.configure(data: ["전체 6개", "유제품", "간편식.밀키트.샐러드", "과일.견과.쌀", "간식"], index: 0)
+            guard let count = wishListData?.products.count else { return UITableViewCell() }
+            cell.configure(data: ["전체 \(count)개", "유제품", "간편식.밀키트.샐러드", "과일.견과.쌀", "간식"], index: 0)
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
         default: guard let cell = wishListTableView.dequeueReusableCell(withIdentifier: WishListTableViewCell.identifier, for: indexPath) as? WishListTableViewCell else { return UITableViewCell() }
-            cell.configure(data: WishListModel(title: "[프레지덩] 포션 버터 비가염 (10g X 20개입)", imageURL: "https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", defaultPrice: "8,980원", price: "7,273원", discount: "19%"))
+            guard let data = wishListData else { return UITableViewCell() }
+            cell.configure(data: data.products[indexPath.row])
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
         }
@@ -128,6 +134,20 @@ extension WishListViewController : UITableViewDataSource, UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: cell.bounds.width)
         } else {
             cell.separatorInset = .zero
+        }
+    }
+}
+
+extension WishListViewController {
+    private func fetchWishList(memberId: Int) {
+        WishListApi.shared.getWishList(memberId: memberId) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.wishListData = data
+                self?.wishListTableView.reloadData()
+            case .failure(let error):
+                print("에러 \(error)")
+            }
         }
     }
 }

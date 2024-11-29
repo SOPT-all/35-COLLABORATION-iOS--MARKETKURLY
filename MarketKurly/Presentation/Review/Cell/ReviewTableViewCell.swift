@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 class ReviewTableViewCell: UITableViewCell {
+    
     private let advertisementLabel = UILabel().then {
         $0.text = "광고"
         $0.font = MarketKurlyFont.captionMedium10.font
@@ -116,8 +117,8 @@ class ReviewTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(data: ReviewData){
-        if(!data.isAdvertisement){
+    func configure(data: Review){
+        if(!data.isAdd){
             advertisementLabel.snp.makeConstraints {
                 $0.width.equalTo(0)
             }
@@ -125,11 +126,11 @@ class ReviewTableViewCell: UITableViewCell {
                 $0.leading.equalTo(advertisementLabel.snp.trailing)
             }
         }
-        nameLabel.text = data.name
-        discriptionLabel.text = data.discription
-        imageGridView.updateImages(with: data.imageUrls)
-        reviewLabel.text = data.review
-        dateLabel.text = data.date
-        ratingStarView.updateRating(Int(data.rating))
+        nameLabel.text = data.userName
+        discriptionLabel.text = data.userName
+        imageGridView.updateImages(with: [data.image1 ?? "", data.image2 ?? "", data.image3 ?? ""])
+        reviewLabel.text = data.content
+        dateLabel.text = String(data.createdAt.prefix(10))
+        ratingStarView.updateRating(Int(data.score))
     }
 }
