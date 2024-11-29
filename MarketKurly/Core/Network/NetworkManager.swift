@@ -16,6 +16,12 @@ final class NetworkManager {
     var session: Session
     
     private init() {
-        self.session = Session(eventMonitors: loggers)
+        let configuration = URLSessionConfiguration.default
+        configuration.headers.add(name: "memberId", value: "6")
+        
+        self.session = Session(
+            configuration: configuration,
+            eventMonitors: loggers
+        )
     }
 }
