@@ -37,7 +37,6 @@ class SellerInfo: UIView {
     
     private let sellerNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "컬리"
         label.font = MarketKurlyFont.bodyMedium14.font
         label.textColor = .gray7
         return label
@@ -72,8 +71,6 @@ class SellerInfo: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configure(with: Goods.infoMockData[0])
         
         setStyle()
         setUI()
@@ -121,28 +118,32 @@ class SellerInfo: UIView {
         }
     }
     
-    func configure(with goods: Goods) {
-        if let deliveryType = goods.deliveryType {
-            let fullText = "\(deliveryType)\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 2
-            
-            let attributedText = NSMutableAttributedString(
-                string: fullText,
-                attributes: [
-                    .font: MarketKurlyFont.captionRegular12.font,
-                    .foregroundColor: UIColor.gray6,
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            
-            attributedText.addAttributes([
-                .font: MarketKurlyFont.bodyMedium14.font,
-                .foregroundColor: UIColor.gray7
-            ], range: NSRange(location: 0, length: deliveryType.count))
-            
-            deliveryTypeLabel.attributedText = attributedText
-            
-        }
+    // 데이터 연동
+    func configure(with data: DetailDataDto) {
+        let deliveryType = data.deliveryType
+        let fullText = "\(deliveryType)\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
+        
+        let seller = data.seller
+        sellerNameLabel.text = seller
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 2
+        
+        let attributedText = NSMutableAttributedString(
+            string: fullText,
+            attributes: [
+                .font: MarketKurlyFont.captionRegular12.font,
+                .foregroundColor: UIColor.gray6,
+                .paragraphStyle: paragraphStyle
+            ]
+        )
+        
+        attributedText.addAttributes([
+            .font: MarketKurlyFont.bodyMedium14.font,
+            .foregroundColor: UIColor.gray7
+        ], range: NSRange(location: 0, length: deliveryType.count))
+        
+        deliveryTypeLabel.attributedText = attributedText
     }
+    
 }

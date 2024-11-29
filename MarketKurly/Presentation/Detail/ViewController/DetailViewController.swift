@@ -81,6 +81,23 @@ class DetailViewController: UIViewController {
         setLayout()
         
         wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
+        
+        fetchDetailData()
+    }
+    
+    private func fetchDetailData() {
+        let productId = 12
+        
+        DetailApi.shared.getDetailData(productId: productId) { result in
+            switch result {
+            case .success(let detailDto):
+                self.priceInfo.configure(with: detailDto.data)
+                self.sellerInfo.configure(with: detailDto.data)
+                self.goodsInfo.configure(with: detailDto.data)
+            case .failure(let error):
+                print("Error fetching detail data: \(error)")
+            }
+        }
     }
     
     private func setDelegate() {
