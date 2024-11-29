@@ -45,11 +45,7 @@ final class HomeRecommendListCell: UICollectionViewCell {
         $0.configuration = config
     }
     
-    private let strikePriceLabel = UILabel().then {
-        $0.attributedText = .makeAttributedString(text: "10,000원",  // FIXME: 원가 데이터 필요
-                                                  color: .coolGray3,
-                                                  font: MarketKurlyFont.captionRegular12.font)
-    }
+    private let strikePriceLabel = UILabel()
     
     private let strikePriceView = UIView().then {
         $0.backgroundColor = .coolGray3
@@ -65,21 +61,18 @@ final class HomeRecommendListCell: UICollectionViewCell {
     
     private let salePriceLabel = UILabel()
     
-    private let commentStackView = UIStackView().then {
+    private let reviewStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 0
-        $0.alignment = .center
+        $0.alignment = .bottom
     }
     
-    private let commentIconImageView = UIImageView().then {
+    private let reviewIconImageView = UIImageView().then {
         $0.image = UIImage(named: "icn_home_comment")
     }
     
-    private let commentCountLabel = UILabel().then {
-        $0.attributedText = .makeAttributedString(text: "999+",
-                                                  color: .coolGray3,
-                                                  font: MarketKurlyFont.captionRegular12.font)
-    }
+    private let reviewCountLabel = UILabel()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -109,9 +102,9 @@ final class HomeRecommendListCell: UICollectionViewCell {
                     discountRateLabel,
                     salePriceLabel
                 ),
-                commentStackView.addArrangedSubviews(
-                    commentIconImageView,
-                    commentCountLabel
+                reviewStackView.addArrangedSubviews(
+                    reviewIconImageView,
+                    reviewCountLabel
                 )
             )
         )
@@ -155,12 +148,12 @@ final class HomeRecommendListCell: UICollectionViewCell {
             $0.right.lessThanOrEqualToSuperview()
         }
         
-        commentStackView.snp.makeConstraints {
+        reviewStackView.snp.makeConstraints {
             $0.top.equalTo(salePriceStackView.snp.bottom).offset(3)
             $0.horizontalEdges.equalToSuperview()
         }
         
-        commentIconImageView.snp.makeConstraints {
+        reviewIconImageView.snp.makeConstraints {
             $0.size.equalTo(18)
         }
     }
@@ -177,20 +170,33 @@ final class HomeRecommendListCell: UICollectionViewCell {
         if let productName = item.name {
             productNameLabel.attributedText = .makeAttributedString(text: productName,
                                                                     color: .gray8,
-                                                                    font: MarketKurlyFont.bodySemiBold14.font)  // FIXME: Medium 폰트 추가 필요
+                                                                    font: MarketKurlyFont.bodyMedium14.font)
         }
         
         if let discountRate = item.discount {
             discountRateLabel.attributedText = .makeAttributedString(text: "\(discountRate)%",
-                                                                     color: .red,
-                                                                     font: MarketKurlyFont.bodySemiBold14.font)
+                                                                     color: .kurlyRed,
+                                                                     font: MarketKurlyFont.bodyBold14.font)
+        }
+        
+        if let discountPrice = item.discountPrice,
+           let formattedDiscountPrice = Formatter.currency.string(for: discountPrice) {
+            strikePriceLabel.attributedText = .makeAttributedString(text: formattedDiscountPrice + "원",
+                                                                    color: .coolGray3,
+                                                                    font: MarketKurlyFont.captionRegular12.font)
         }
         
         if let salePrice = item.price,
            let formattedSalePrice = Formatter.currency.string(for: salePrice) {
             salePriceLabel.attributedText = .makeAttributedString(text: formattedSalePrice + "원",
                                                                   color: .gray8,
-                                                                  font: MarketKurlyFont.bodySemiBold14.font)
+                                                                  font: MarketKurlyFont.bodyBold14.font)
+        }
+        
+        if let reviewCount = item.reviewCount {
+            reviewCountLabel.attributedText = .makeAttributedString(text: "\(reviewCount)+",
+                                                                     color: .coolGray3,
+                                                                     font: MarketKurlyFont.captionRegular12.font)
         }
     }
     
@@ -198,8 +204,10 @@ final class HomeRecommendListCell: UICollectionViewCell {
     private func clearUI() {
         productImageView.image = nil
         productNameLabel.attributedText = nil
+        strikePriceLabel.attributedText = nil
         discountRateLabel.attributedText = nil
         salePriceLabel.attributedText = nil
+        reviewCountLabel.attributedText = nil
     }
 }
 

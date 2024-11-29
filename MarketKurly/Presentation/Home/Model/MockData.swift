@@ -34,31 +34,7 @@ struct MockData {
         HomeCategoryItem(id: 12, imageUrl: "icn_home_showcase", title: "쇼케이스")
     ])
     
-    static let wishListSection = HomeWishListSection(mainTopProducts: [
-        HomeWishListItem(id: 0, name: "[3개 사면 33%] 비비고 통새우만두 200g", price: 4630, discount: 33, image: "img_home_card_small_shrimp"),
-        HomeWishListItem(id: 1, name: "[사리원] 소불고기 전골", price: 10335, discount: 35, image: "img_home_card_small_bulgogi"),
-        HomeWishListItem(id: 2, name: "아삭하고 달콤한 황금사과 1.3kg (5~7입)", price: 14900, discount: 33, image: "img_home_card_small_apple"),
-        HomeWishListItem(id: 3, name: "[제각각] 당도선별 제주점보 감귤 3kg", price: 12900, discount: 18, image: "img_home_card_small_mandarin"),
-        HomeWishListItem(id: 4, name: "[골라담기][네스프레소] 커피 캡슐 25종 (택2)", price: 4630, discount: 33, image: "img_home_card_small_nespresso")
-    ])
-
     static let midBannerSection = HomeMidBannerSection(midBannerData: [
         HomeMidBannerItem(id: 0, imageUrl: "img_home_banner_small")
-    ])
-    
-    static let rankingListSection = HomeRankingListSection(mainMiddleProducts: [
-        HomeRankingListItem(id: 0, name: "[사미헌] 갈비탕", price: 11050, discount: 15, image: "img_home_card_large_galbeetang"),
-        HomeRankingListItem(id: 1, name: "[거대곰탕] 곰탕", price: 12750, discount: 15, image: "img_home_card_large_gomtang"),
-        HomeRankingListItem(id: 2, name: "[KF365] 16Brix 고당도 상주 샤인머스캣", price: 9990, discount: 33, image: "img_home_card_large_shinemusket"),
-        HomeRankingListItem(id: 3, name: "[바른식] 강릉식 짬뽕순두부 찌개", price: 7654, discount: 14, image: "img_home_card_large_jjampong"),
-        HomeRankingListItem(id: 4, name: "[스윗밸런스] 오늘의 샐러드 10종", price: 4760, discount: 15, image: "img_home_card_large_salad")
-    ])
-    
-    static let recommendListSection = HomeRecommendListSection(mainBottomData: [
-        HomeRecommendListItem(id: 0, name: "[이영애의 건강미식] 효소 30포 3종", price: 16900, discount: 80, image: "img_home_card_small_lee"),
-        HomeRecommendListItem(id: 1, name: "[가농바이오] 오메가 에그 무항생제 1+등급", price: 6800, discount: 22, image: "img_home_card_small_egg"),
-        HomeRecommendListItem(id: 2, name: "[동국제약] 굿잠 온찜질팩 5입", price: 7500, discount: 49, image: "img_home_card_small_dongkook"),
-        HomeRecommendListItem(id: 3, name: "태추 단감 1kg (특 4입)", price: 16900, discount: 5, image: "img_home_card_small_gam"),
-        HomeRecommendListItem(id: 4, name: "[성수동 분식] 콘치즈 김치볶음밥 (2개입)", price: 7420, discount: 25, image: "img_home_card_small_corn")
     ])
 }

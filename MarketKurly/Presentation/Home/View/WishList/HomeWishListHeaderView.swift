@@ -24,13 +24,13 @@ final class HomeWishListHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "👑 껄디님을 위해 엄선했어요",
                                                   color: .gray8,
-                                                  font: MarketKurlyFont.bodyBold16.font)  // FIXME: 폰트 변경 필요
+                                                  font: MarketKurlyFont.bodySemiBold18.font)
     }
     
     private let descriptionLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "찜해 놓은 그 상품, 지금 빅세일로 저렴하게!",
                                                   color: .coolGray4,
-                                                  font: MarketKurlyFont.bodySemiBold14.font)  // FIXME: 폰트 변경 필요
+                                                  font: MarketKurlyFont.bodyMedium14.font)
     }
     
     private let showMoreButton = UIButton().then {
@@ -45,7 +45,7 @@ final class HomeWishListHeaderView: UICollectionReusableView {
         // 텍스트 설정
         config.attributedTitle = AttributedString(.makeAttributedString(text: "전체보기",
                                                                         color: .primary600,
-                                                                        font: MarketKurlyFont.bodySemiBold14.font,
+                                                                        font: MarketKurlyFont.bodyMedium14.font,
                                                                         textAlignment: .center))
         config.contentInsets = .zero
         

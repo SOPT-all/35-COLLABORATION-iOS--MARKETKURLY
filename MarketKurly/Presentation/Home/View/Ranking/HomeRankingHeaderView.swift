@@ -24,14 +24,14 @@ final class HomeRankingHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "🏆 실시간 인기 랭킹 🏆",
                                                   color: .gray8,
-                                                  font: MarketKurlyFont.titleBody18.font,
+                                                  font: MarketKurlyFont.bodySemiBold18.font,
                                                   textAlignment: .center)
     }
     
     private let descriptionLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "가장 인기있는 상품만 모아보세요!",
                                                   color: .coolGray4,
-                                                  font: MarketKurlyFont.bodySemiBold14.font)  // FIXME: 폰트 변경 필요
+                                                  font: MarketKurlyFont.bodyMedium14.font)
     }
     
     required init?(coder: NSCoder) {

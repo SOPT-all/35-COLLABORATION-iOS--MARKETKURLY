@@ -145,20 +145,20 @@ final class HomeRankingListCell: UICollectionViewCell {
         if let productName = item.name {
             productNameLabel.attributedText = .makeAttributedString(text: productName,
                                                                     color: .gray8,
-                                                                    font: MarketKurlyFont.bodySemiBold14.font)  // FIXME: Medium 폰트 추가 필요
+                                                                    font: MarketKurlyFont.bodyMedium14.font)
         }
         
         if let discountRate = item.discount {
             discountRateLabel.attributedText = .makeAttributedString(text: "\(discountRate)%",
-                                                                     color: .red,
-                                                                     font: MarketKurlyFont.bodySemiBold14.font)
+                                                                     color: .kurlyRed,
+                                                                     font: MarketKurlyFont.bodyBold14.font)
         }
         
         if let salePrice = item.price,
            let formattedSalePrice = Formatter.currency.string(for: salePrice) {
             salePriceLabel.attributedText = .makeAttributedString(text: formattedSalePrice + "원",
                                                                   color: .gray8,
-                                                                  font: MarketKurlyFont.bodySemiBold14.font)
+                                                                  font: MarketKurlyFont.bodyBold14.font)
         }
     }
     
