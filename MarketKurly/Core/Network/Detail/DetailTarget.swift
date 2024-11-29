@@ -14,7 +14,7 @@ enum DetailTarget {
 
 extension DetailTarget: TargetType {
     var baseURL: String {
-        return "http://211.188.50.209:8080"
+        return Configuration.baseURL
     }
     
     var method: Alamofire.HTTPMethod {
