@@ -34,12 +34,13 @@ class DetailViewController: UIViewController {
         descriptionLabel.textColor = .kurlyWhite
         descriptionLabel.font = MarketKurlyFont.captionMedium12.font
         
-        let goToWishListLabel = UILabel()
-        goToWishListLabel.text = "찜한 상품으로 가기"
-        goToWishListLabel.textColor = .primary300
-        goToWishListLabel.font = MarketKurlyFont.captionMedium12.font
+        let goToWishListButton = UIButton()
+        goToWishListButton.setTitle("찜한 상품으로 가기", for: .normal)
+        goToWishListButton.setTitleColor(.primary300, for: .normal)
+        goToWishListButton.titleLabel?.font = MarketKurlyFont.captionMedium12.font
+        goToWishListButton.addTarget(self, action: #selector(didTapGoToWishList), for: .touchUpInside)
         
-        let stackView = UIStackView(arrangedSubviews: [descriptionLabel, goToWishListLabel])
+        let stackView = UIStackView(arrangedSubviews: [descriptionLabel, goToWishListButton])
         stackView.axis = .horizontal
         stackView.spacing = 61
         stackView.alignment = .center
@@ -176,7 +177,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func didTapWishButton() {
-        isWished.toggle() // 찜 상태를 토글
+        isWished.toggle()
         
         if isWished {
             wishButton.setImage(UIImage(named: "icn_save_activate"), for: .normal)
@@ -217,6 +218,9 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @objc private func didTapGoToWishList() {
+        navigationController?.pushViewController(WishListViewController(), animated: true)
+    }
 }
 
 extension DetailViewController: PriceInfoDelegate {
