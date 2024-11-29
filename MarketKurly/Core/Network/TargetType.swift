@@ -14,6 +14,7 @@ public protocol TargetType: URLRequestConvertible {
     var method: HTTPMethod { get }
     var path: String { get }
     var parameters: RequestParameters { get }
+    var headers: [String: String]? { get }
 }
 
 public extension TargetType {

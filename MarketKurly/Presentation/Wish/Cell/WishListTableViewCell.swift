@@ -134,12 +134,21 @@ class WishListTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(data: WishListModel){
-        guard let url = URL(string: data.imageURL) else { return }
+    func configure(data: Product){
+        guard let url = URL(string: data.image) else { return }
         productImageView.kf.setImage(with: url)
-        titleLabel.text = data.title
-        discountLabel.text = data.discount
-        priceLabel.text = data.price
-        defaultPriceLabel.text = data.defaultPrice
+        titleLabel.text = data.name
+        discountLabel.text = String(data.discount) + "%"
+        priceLabel.text = toPriceFommat(price: data.price * (100 - data.discount)/100)
+        defaultPriceLabel.text = toPriceFommat(price: data.price)
+    }
+    
+    private func toPriceFommat(price: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        if let formattedNumber = formatter.string(from: NSNumber(value: price)) {
+            return "\(formattedNumber)원"
+        }
+        return "\(price)원"
     }
 }

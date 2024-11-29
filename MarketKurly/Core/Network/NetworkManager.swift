@@ -17,7 +17,7 @@ final class NetworkManager {
     
     private init() {
         let configuration = URLSessionConfiguration.default
-        configuration.headers.add(name: "memberId", value: "6")
+        //configuration.headers.add(name: "memberId", value: "6")
         
         self.session = Session(
             configuration: configuration,
