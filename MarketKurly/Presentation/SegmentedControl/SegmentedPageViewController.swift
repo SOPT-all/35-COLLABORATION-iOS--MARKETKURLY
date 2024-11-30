@@ -13,6 +13,8 @@ class SegmentedPageViewController: UIViewController {
     
     private let productId: Int
     
+    private let topNavigation = TopNavigation()
+    
     private lazy var segmentController: UISegmentedControl = {
         let segment = UnderlineSegmentedControl(items: ["상품설명", "상세정보", "후기", "문의"])
         segment.selectedSegmentIndex = 0
@@ -48,13 +50,20 @@ class SegmentedPageViewController: UIViewController {
         // segment control 뷰 컨트롤러 세팅
         self.viewControllers = [DetailViewController(productId: productId),
                                 createViewController(text: "상세정보"),
-                                ReviewViewController(),
+                                ReviewViewController(productId: productId),
                                 createViewController(text: "문의")]
         
         setUI()
         setStyle()
         setLayout()
         setupInitialViewController()
+        setDelegates()
+        
+        fetchDetailData()
+    }
+    
+    private func setDelegates() {
+        topNavigation.delegate = self
     }
     
     private func setStyle() {
@@ -63,13 +72,19 @@ class SegmentedPageViewController: UIViewController {
     
     private func setUI() {
         addChild(pageViewController)
-        view.addSubviews(segmentController, pageViewController.view)
+        view.addSubviews(topNavigation, segmentController, pageViewController.view)
         pageViewController.didMove(toParent: self)
     }
     
     private func setLayout() {
-        segmentController.snp.makeConstraints {
+        
+        topNavigation.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        segmentController.snp.makeConstraints {
+            $0.top.equalTo(topNavigation.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(40)
         }
@@ -132,5 +147,48 @@ extension SegmentedPageViewController: UIPageViewControllerDelegate {
               let index = viewControllers.firstIndex(of: currentVC) else { return }
         
         segmentController.selectedSegmentIndex = index
+    }
+}
+
+
+extension SegmentedPageViewController {
+    
+    private func fetchDetailData() {
+        DetailApi.shared.getDetailData(productId: productId) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let detailDto):
+                if let detailDto {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self else { return }
+                        guard let detailViewController = self.pageViewController.viewControllers?.first as? DetailViewController else {
+                            return
+                        }
+                        detailViewController.setData(detailDto: detailDto)
+                        self.topNavigation.setUI(title: detailDto.name,
+                                                 primaryIcon: "ic_cart_40",
+                                                 secondaryIcon: nil)
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching detail data: \(error)")
+            }
+        }
+    }
+}
+
+
+extension SegmentedPageViewController: TopNavigationDelegate {
+    func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func trailingPrimaryButtonDidTap() {
+        
+    }
+    
+    func trailingSecondaryButtonDidTap() {
+        
     }
 }

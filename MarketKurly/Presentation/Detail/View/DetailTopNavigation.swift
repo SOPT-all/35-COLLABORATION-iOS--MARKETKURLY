@@ -9,29 +9,38 @@ import UIKit
 import Then
 import SnapKit
 
-protocol DetailTopNavigationDelegate: AnyObject {
+protocol TopNavigationDelegate: AnyObject {
     func backButtonDidTap()
+    func trailingPrimaryButtonDidTap()
+    func trailingSecondaryButtonDidTap()
 }
 
 
-final class DetailTopNavigation: UIView {
+final class TopNavigation: UIView {
     
-    weak var delegate: DetailTopNavigationDelegate?
+    weak var delegate: TopNavigationDelegate?
     
     private let containerView = UIView().then {
-        $0.backgroundColor = .primary600
+        $0.backgroundColor = .kurlyWhite
     }
     
     private let backButton = UIButton().then {
         $0.setImage(UIImage(named: "ic_back_button"), for: .normal)
     }
     
-    private let cartButton = UIButton().then {
-        $0.setImage(UIImage(named: "ic_cart_40"), for: .normal)
+    private let trailingButtonStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 0
+        $0.alignment = .center
     }
     
+    private let primaryIconButton = UIButton()
+    
+    private let secondaryIconButton = UIButton()
+    
+    
     private let titleLabel = UILabel().then {
-        $0.numberOfLines = 0
+        $0.numberOfLines = 1
     }
     
     override init(frame: CGRect) {
@@ -51,7 +60,10 @@ final class DetailTopNavigation: UIView {
             containerView.addSubviews(
                 backButton,
                 titleLabel,
-                cartButton
+                trailingButtonStackView.addArrangedSubviews(
+                    primaryIconButton,
+                    secondaryIconButton
+                )
             )
         )
         
@@ -61,19 +73,26 @@ final class DetailTopNavigation: UIView {
         
         backButton.snp.makeConstraints {
             $0.size.equalTo(48)
-            $0.leading.equalToSuperview().inset(2)
-            $0.bottom.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
         }
         
-        cartButton.snp.makeConstraints {
+        trailingButtonStackView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(10)
+            $0.top.bottom.equalToSuperview()
+        }
+        
+        primaryIconButton.snp.makeConstraints {
             $0.size.equalTo(48)
-            $0.trailing.equalToSuperview().inset(2)
-            $0.bottom.equalToSuperview()
+        }
+        
+        secondaryIconButton.snp.makeConstraints {
+            $0.size.equalTo(48)
         }
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(backButton.snp.trailing)
-            $0.trailing.equalTo(cartButton.snp.leading).offset(-6)
+            $0.trailing.equalTo(trailingButtonStackView.snp.leading)
             $0.centerY.equalTo(backButton.snp.centerY)
         }
     }
@@ -84,24 +103,50 @@ final class DetailTopNavigation: UIView {
             guard let self else { return }
             delegate?.backButtonDidTap()
         }, for: .touchUpInside)
+        
+        primaryIconButton.addAction(UIAction { [weak self] _ in
+            guard let self else { return }
+            delegate?.trailingPrimaryButtonDidTap()
+        }, for: .touchUpInside)
+        
+        secondaryIconButton.addAction(UIAction { [weak self] _ in
+            guard let self else { return }
+            delegate?.trailingSecondaryButtonDidTap()
+        }, for: .touchUpInside)
     }
     
     
-    public func setUI(title: String?) {
+    public func setUI(title: String?,
+                      primaryIcon: String?,
+                      secondaryIcon: String?) {
         
         clearUI()
         
         if let title {
             titleLabel.attributedText = .makeAttributedString(text: title,
                                                               color: .gray8,
-                                                              font: MarketKurlyFont.titleBody18.font,
+                                                              font: MarketKurlyFont.bodyBold16.font,
+                                                              textAlignment: .center,
                                                               lineBreakMode: .byTruncatingTail)
+        }
+        
+        if let primaryIcon {
+            primaryIconButton.setImage(UIImage(named: primaryIcon), for: .normal)
+            primaryIconButton.isHidden = false
+        }
+        
+        if let secondaryIcon {
+            secondaryIconButton.setImage(UIImage(named: secondaryIcon), for: .normal)
+            secondaryIconButton.isHidden = false
         }
     }
     
     
     private func clearUI() {
         titleLabel.attributedText = nil
+        primaryIconButton.setImage(nil, for: .normal)
+        primaryIconButton.isHidden = true
+        secondaryIconButton.setImage(nil, for: .normal)
+        secondaryIconButton.isHidden = true
     }
 }
-

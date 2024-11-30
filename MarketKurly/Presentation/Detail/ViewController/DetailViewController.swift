@@ -12,6 +12,7 @@ import SnapKit
 class DetailViewController: UIViewController {
     
     private var productId: Int
+    private var detailDto: DetailDto?
     private var isWished: Bool
     
     private let priceInfo = PriceInfo()
@@ -75,7 +76,8 @@ class DetailViewController: UIViewController {
     }()
     
     
-    public init(productId: Int, isWished: Bool = false) {
+    public init(productId: Int,
+                isWished: Bool = false) {
         self.productId = productId
         self.isWished = isWished
         
@@ -96,8 +98,7 @@ class DetailViewController: UIViewController {
         setLayout()
         
         wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
-        
-        fetchDetailData()
+
     }
     
     private func setDelegate() {
@@ -175,20 +176,14 @@ class DetailViewController: UIViewController {
         }
     }
     
-    private func fetchDetailData() {
-        DetailApi.shared.getDetailData(productId: productId) { result in
-            switch result {
-            case .success(let detailDto):
-                if let detailDto {
-                    self.priceInfo.configure(with: detailDto)
-                    self.sellerInfo.configure(with: detailDto)
-                    self.goodsInfo.configure(with: detailDto)
-                }
-            case .failure(let error):
-                print("Error fetching detail data: \(error)")
-            }
-        }
+
+    
+    public func setData(detailDto: DetailDto) {
+        self.priceInfo.configure(with: detailDto)
+        self.sellerInfo.configure(with: detailDto)
+        self.goodsInfo.configure(with: detailDto)
     }
+    
     
     @objc private func didTapWishButton() {
         isWished.toggle()
