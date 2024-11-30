@@ -119,7 +119,7 @@ class SellerInfo: UIView {
     }
     
     // 데이터 연동
-    func configure(with data: DetailDataDto) {
+    func configure(with data: DetailDto) {
         let deliveryType = data.deliveryType
         let fullText = "\(deliveryType)\n23시 전 주문 시 수도권/충청 내일 아침 7시 전 도착\n(그 외 지역 아침 8시 전 도착)"
         

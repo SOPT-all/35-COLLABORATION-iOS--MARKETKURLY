@@ -12,11 +12,11 @@ struct ReviewApi {
     
     private let client = KurlyClient.shared
     
-    func getReviews(productId: Int, completion: @escaping (Result<ResponseReviewDTO, NetworkError>) -> Void) {
+    func getReviews(productId: Int, completion: @escaping (Result<ResponseReviewDTO?, NetworkError>) -> Void) {
         client.request(ResponseReviewDTO.self, target: ReviewTarget.getReviews(productId)) { result in
             switch result {
-            case .success(let data):
-                completion(.success(data))
+            case .success(let response):
+                completion(.success(response.data))
             case .failure(let error):
                 completion(.failure(error))
             }

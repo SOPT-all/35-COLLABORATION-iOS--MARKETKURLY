@@ -12,11 +12,11 @@ struct HomeApi {
     
     private let client = KurlyClient.shared
     
-    func getHomeData(completion: @escaping (Result<HomeDto, NetworkError>) -> Void) {
+    func getHomeData(completion: @escaping (Result<HomeDto?, NetworkError>) -> Void) {
         client.request(HomeDto.self, target: HomeTarget.getHomeData) { result in
             switch result {
-            case .success(let data):
-                completion(.success(data))
+            case .success(let response):
+                completion(.success(response.data))
             case .failure(let error):
                 completion(.failure(error))
             }

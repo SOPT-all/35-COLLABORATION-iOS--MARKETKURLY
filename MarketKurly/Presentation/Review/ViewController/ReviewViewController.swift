@@ -12,9 +12,20 @@ import Then
 
 class ReviewViewController: UIViewController {
     
+    private var productId: Int
     private var reviewData: ResponseReviewDTO?
     
     private let reviewTableView = UITableView(frame: .zero, style: .grouped)
+    
+    init(productId: Int) {
+        self.productId = productId
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +33,7 @@ class ReviewViewController: UIViewController {
         addSubviews()
         setLayout()
         setStyle()
-        fetchReview(productId: 33)
+        fetchReview(productId: productId)
     }
     
     private func addSubviews() {

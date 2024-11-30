@@ -34,6 +34,8 @@ struct HomeWishListItem: Codable, Hashable {
     let price: Int?
     let discount: Int?
     let image: String?
+    let discountPrice: Int?
+    let reviewCount: Int?
 }
 
 struct HomeRankingListSection: Codable, Hashable {
@@ -46,6 +48,8 @@ struct HomeRankingListItem: Codable, Hashable {
     let price: Int?
     let discount: Int?
     let image: String?
+    let discountPrice: Int?
+    let reviewCount: Int?
 }
 
 struct HomeRecommendListSection: Codable, Hashable {
@@ -58,6 +62,8 @@ struct HomeRecommendListItem: Codable, Hashable {
     let price: Int?
     let discount: Int?
     let image: String?
+    let discountPrice: Int?
+    let reviewCount: Int?
 }
 
 struct HomeMidBannerSection: Codable, Hashable {

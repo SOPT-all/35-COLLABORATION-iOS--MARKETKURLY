@@ -8,12 +8,6 @@
 import Foundation
 
 struct DetailDto: Codable, Hashable {
-    let success: Bool
-    let message: String
-    let data: DetailDataDto
-}
-
-struct DetailDataDto: Codable, Hashable {
     let name: String
     let price: Int
     let discount: Int

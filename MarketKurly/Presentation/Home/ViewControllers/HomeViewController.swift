@@ -138,8 +138,16 @@ final class HomeViewController: UIViewController {
                 ) as? HomeWishListCell else {
                     return UICollectionViewCell()
                 }
-                if let wishListItem = item as? HomeWishListItem {
+                if let wishListItem = item as? HomeWishListItem,
+                   let productId = wishListItem.id {
                     cell.setUI(with: wishListItem)
+                    // 탭 터치 이벤트 바인딩
+                    cell.onCellTap = { [weak self] in
+                        guard let self else { return }
+                        let detailViewController = SegmentedPageViewController(productId: productId)
+                        navigationController?.pushViewController(detailViewController, animated: true)
+                        navigationItem.backButtonTitle = ""
+                    }
                 }
                 return cell
             // 중간 광고 배너
@@ -186,7 +194,7 @@ final class HomeViewController: UIViewController {
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil}
             
             switch section {
-            // 위시 리스트
+                // 위시 리스트
             case .wishList:
                 // 헤더
                 let header = collectionView.dequeueReusableSupplementaryView(
@@ -195,10 +203,10 @@ final class HomeViewController: UIViewController {
                     for: indexPath
                 ) as? HomeWishListHeaderView
                 return header
-            // 랭킹 리스트
+                // 랭킹 리스트
             case .rankingList:
                 switch kind {
-                // 헤더
+                    // 헤더
                 case UICollectionView.elementKindSectionHeader:
                     let header = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
@@ -206,7 +214,7 @@ final class HomeViewController: UIViewController {
                         for: indexPath
                     ) as? HomeRankingHeaderView
                     return header
-                // 푸터
+                    // 푸터
                 case UICollectionView.elementKindSectionFooter:
                     let footer = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
@@ -217,7 +225,7 @@ final class HomeViewController: UIViewController {
                 default:
                     return nil
                 }
-            // 추천 리스트
+                // 추천 리스트
             case .recommendList:
                 // 헤더
                 let header = collectionView.dequeueReusableSupplementaryView(
@@ -230,7 +238,6 @@ final class HomeViewController: UIViewController {
                 return nil
             }
         }
-
     }
 
     
@@ -457,6 +464,7 @@ final class HomeViewController: UIViewController {
             guard let self else { return }
             switch result {
             case .success(let data):
+                guard let data else { return }
                 self.applySnapshot(with: data)
             case .failure(let error):
                 print("Log - \(error.errorMessage)")

@@ -15,7 +15,7 @@ enum WishTarget {
 
 extension WishTarget: TargetType {
     var baseURL: String {
-        return "http://211.188.50.209:8080"
+        return Configuration.baseURL
     }
     
     var method: HTTPMethod {
@@ -36,7 +36,7 @@ extension WishTarget: TargetType {
         return .none
     }
     
-    var headers: HTTPHeaders {
+    var headers: [String: String]? {
         return ["memberId": "6"]
     }
     

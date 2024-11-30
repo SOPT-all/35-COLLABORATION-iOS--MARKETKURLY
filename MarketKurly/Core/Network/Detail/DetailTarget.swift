@@ -33,7 +33,7 @@ extension DetailTarget: TargetType {
         return .none
     }
     
-    var headers: HTTPHeaders? {
+    var headers: [String: String]? {
         return ["memberId": "6"]
     }
     

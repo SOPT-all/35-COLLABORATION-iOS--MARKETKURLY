@@ -24,13 +24,13 @@ final class HomeRecommendListHeaderView: UICollectionReusableView {
     private let titleLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "🎊 이 상품은 어때요?",
                                                   color: .gray8,
-                                                  font: MarketKurlyFont.bodyBold16.font)  // FIXME: 폰트 변경 필요
+                                                  font: MarketKurlyFont.bodySemiBold18.font)
     }
     
     private let descriptionLabel = UILabel().then {
         $0.attributedText = .makeAttributedString(text: "껄디님의 취향에 맞는 상품을 담아보세요",
                                                   color: .coolGray4,
-                                                  font: MarketKurlyFont.bodySemiBold14.font)  // FIXME: 폰트 변경 필요
+                                                  font: MarketKurlyFont.bodyMedium14.font)
     }
     
     private let showMoreButton = UIButton().then {
@@ -45,7 +45,7 @@ final class HomeRecommendListHeaderView: UICollectionReusableView {
         // 텍스트 설정
         config.attributedTitle = AttributedString(.makeAttributedString(text: "전체보기",
                                                                         color: .primary600,
-                                                                        font: MarketKurlyFont.bodySemiBold14.font,
+                                                                        font: MarketKurlyFont.bodyMedium14.font,
                                                                         textAlignment: .center))
         config.contentInsets = .zero
         

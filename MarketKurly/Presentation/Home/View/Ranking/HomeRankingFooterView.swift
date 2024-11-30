@@ -26,7 +26,7 @@ final class HomeRankingFooterView: UICollectionReusableView {
         // 텍스트 설정
         config.attributedTitle = AttributedString(.makeAttributedString(text: "전체보기",
                                                                         color: .gray7,
-                                                                        font: MarketKurlyFont.bodySemiBold14.font,
+                                                                        font: MarketKurlyFont.bodyMedium14.font,
                                                                         textAlignment: .center))
         
         // 테두리 설정

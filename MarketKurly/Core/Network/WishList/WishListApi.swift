@@ -12,11 +12,11 @@ struct WishListApi {
     
     private let client = KurlyClient.shared
     
-    func getWishList(memberId: Int, completion: @escaping (Result<ResponseWishListDTO, NetworkError>) -> Void) {
+    func getWishList(memberId: Int, completion: @escaping (Result<ResponseWishListDTO?, NetworkError>) -> Void) {
         client.request(ResponseWishListDTO.self, target: WishListTarget.getWishList(memberId)) { result in
             switch result {
-            case .success(let data):
-                completion(.success(data))
+            case .success(let response):
+                completion(.success(response.data))
             case .failure(let error):
                 completion(.failure(error))
             }

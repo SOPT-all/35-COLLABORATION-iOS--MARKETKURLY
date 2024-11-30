@@ -11,9 +11,9 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
-    var productId: Int = 14
-    
-    private var isWished = false
+    private var productId: Int
+    private var detailDto: DetailDto?
+    private var isWished: Bool
     
     private let priceInfo = PriceInfo()
     private let sellerInfo = SellerInfo()
@@ -23,7 +23,7 @@ class DetailViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    private var snackBar: UIButton  = {
+    private var snackBar: UIButton = {
         let button = UIButton()
         button.backgroundColor = .gray7
         button.layer.cornerRadius = 4
@@ -75,6 +75,20 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    
+    public init(productId: Int,
+                isWished: Bool = false) {
+        self.productId = productId
+        self.isWished = isWished
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,8 +98,7 @@ class DetailViewController: UIViewController {
         setLayout()
         
         wishButton.addTarget(self, action: #selector(didTapWishButton), for: .touchUpInside)
-        
-        fetchDetailData()
+
     }
     
     private func setDelegate() {
@@ -163,18 +176,14 @@ class DetailViewController: UIViewController {
         }
     }
     
-    private func fetchDetailData() {
-        DetailApi.shared.getDetailData(productId: productId) { result in
-            switch result {
-            case .success(let detailDto):
-                self.priceInfo.configure(with: detailDto.data)
-                self.sellerInfo.configure(with: detailDto.data)
-                self.goodsInfo.configure(with: detailDto.data)
-            case .failure(let error):
-                print("Error fetching detail data: \(error)")
-            }
-        }
+
+    
+    public func setData(detailDto: DetailDto) {
+        self.priceInfo.configure(with: detailDto)
+        self.sellerInfo.configure(with: detailDto)
+        self.goodsInfo.configure(with: detailDto)
     }
+    
     
     @objc private func didTapWishButton() {
         isWished.toggle()
@@ -186,8 +195,8 @@ class DetailViewController: UIViewController {
             
             WishApi.shared.addWish(productId: productId) { result in
                 switch result {
-                case .success(let response):
-                    print("\(response.message)")
+                case .success:
+                    print("찜 목록에서 삭제 성공")
                 case .failure(let error):
                     print("\(error)")
                     self.isWished = false
@@ -207,8 +216,8 @@ class DetailViewController: UIViewController {
             
             WishApi.shared.removeWish(productId: productId) { result in
                 switch result {
-                case .success(let response):
-                    print("\(response.message)")
+                case .success:
+                    print("찜 목록에 추가 성공")
                 case .failure(let error):
                     print("\(error)")
                     self.isWished = true
