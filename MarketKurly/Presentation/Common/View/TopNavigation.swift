@@ -1,5 +1,5 @@
 //
-//  DetailTopNavigation.swift
+//  TopNavigation.swift
 //  MarketKurly
 //
 //  Created by 최지석 on 11/30/24.
@@ -43,10 +43,10 @@ final class TopNavigation: UIView {
         $0.numberOfLines = 1
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init(shouldCenterTitle: Bool = false) {
+        super.init(frame: .zero)
         
-        makeUI()
+        makeUI(shouldCenterTitle: shouldCenterTitle)
         bindAction()
     }
     
@@ -55,7 +55,7 @@ final class TopNavigation: UIView {
     }
     
     
-    private func makeUI() {
+    private func makeUI(shouldCenterTitle: Bool) {
         addSubview(
             containerView.addSubviews(
                 backButton,
@@ -91,8 +91,12 @@ final class TopNavigation: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(backButton.snp.trailing)
-            $0.trailing.equalTo(trailingButtonStackView.snp.leading)
+            if shouldCenterTitle {
+                $0.centerX.equalToSuperview()
+            } else {
+                $0.leading.equalTo(backButton.snp.trailing)
+                $0.trailing.equalTo(trailingButtonStackView.snp.leading)
+            }
             $0.centerY.equalTo(backButton.snp.centerY)
         }
     }

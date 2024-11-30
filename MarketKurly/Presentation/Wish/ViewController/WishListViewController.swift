@@ -8,19 +8,12 @@
 import UIKit
 
 class WishListViewController: UIViewController {
-    private let backButtonImageView = UIImageView(image: .icBackButton)
     
     private var wishListData : ResponseWishListDTO?
     
-    private let titleLabel = UILabel().then {
-        $0.text = "찜한 상품"
-        $0.font = MarketKurlyFont.bodyBold16.font
-        $0.textColor = .gray7
+    private let topNavigation = TopNavigation(shouldCenterTitle: true).then {
+        $0.setUI(title: "찜한 상품", primaryIcon: "ic_notification", secondaryIcon: "ic_cart_40")
     }
-    
-    private let notificationImageView = UIImageView(image: .icNotification)
-    
-    private let cartImageView = UIImageView(image: .icCart40)
     
     private let wishListTableView = UITableView(frame: .zero, style: .grouped)
 
@@ -30,36 +23,27 @@ class WishListViewController: UIViewController {
         addSubviews()
         setLayout()
         setStyle()
+        setDelegates()
+        
         fetchWishList(memberId: 6)
     }
     
+    private func setDelegates() {
+        topNavigation.delegate = self
+    }
+    
     private func addSubviews() {
-        view.addSubviews(backButtonImageView, titleLabel, notificationImageView, cartImageView, wishListTableView)
+        view.addSubviews(topNavigation, wishListTableView)
     }
     
     private func setLayout() {
-        backButtonImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(63)
-            $0.leading.equalToSuperview().offset(4)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(backButtonImageView)
-        }
-        
-        notificationImageView.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
-            $0.trailing.equalTo(cartImageView.snp.leading).offset(-5)
-        }
-        
-        cartImageView.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
-            $0.trailing.equalToSuperview().offset(-15)
+        topNavigation.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
         
         wishListTableView.snp.makeConstraints {
-            $0.top.equalTo(cartImageView.snp.bottom).offset(19)
+            $0.top.equalTo(topNavigation.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -150,4 +134,21 @@ extension WishListViewController {
             }
         }
     }
+}
+
+
+extension WishListViewController: TopNavigationDelegate {
+    func backButtonDidTap() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func trailingPrimaryButtonDidTap() {
+        
+    }
+    
+    func trailingSecondaryButtonDidTap() {
+        
+    }
+    
+    
 }
