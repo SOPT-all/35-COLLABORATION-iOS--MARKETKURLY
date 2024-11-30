@@ -210,6 +210,7 @@ final class HomeRankingListCell: UICollectionViewCell {
 
 
 struct HomeRankingListCellView: View {
+    
     let item: HomeRankingListItem
     let cellIndex: Int
 
@@ -277,16 +278,14 @@ struct HomeRankingListCellView: View {
             
             // 담기 버튼
             Button(action: {
-                // 버튼 액션 처리
+                // TODO: Action
             }) {
                 HStack(alignment: .center, spacing: 1) {
-                    // 이미지
                     Image("icon_home_cart_small")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 18, height: 18)
                     
-                    // 텍스트
                     Text("담기")
                         .font(Font(MarketKurlyFont.captionMedium12.font))
                         .foregroundColor(.gray7)
